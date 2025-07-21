@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - TikTok Live Interactive</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            height: 70vh;
+        }
+
+        .messages-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+        }
+
+        .messages-container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .message {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            border-left: 4px solid #ff6b6b;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .username {
+            font-weight: bold;
+            color: #ffd93d;
+        }
+
+        .timestamp {
+            font-size: 0.8rem;
+        }
+
+        .message-text {
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .qr-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .qr-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        #qrCode {
+            max-width: 200px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .stats-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stats-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: #ffd93d;
+        }
+
+        .controls {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .controls h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-clear {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .btn-toggle {
+            background: #4ecdc4;
+            color: white;
+        }
+
+        .btn-toggle:hover {
+            background: #45b7aa;
+            transform: translateY(-2px);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎥 Dashboard do Streamer</h1>
+            <p>Mensagens em tempo real dos seus espectadores</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="messages-container">
+                <h2>💬 Mensagens dos Espectadores</h2>
+                <div id="messagesList"></div>
+            </div>
+
+            <div class="sidebar">
+                <div class="qr-section">
+                    <h3>📱 QR Code para Participantes</h3>
+                    <img id="qrCode" src="" alt="QR Code">
+                    <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
+                        Escaneie para participar da live!
+                    </p>
+                </div>
+
+                <div class="stats-section">
+                    <h3>📊 Estatísticas</h3>
+                    <div class="stat-item">
+                        <span>Mensagens Hoje:</span>
+                        <span class="stat-value" id="totalMessages">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Usuários Ativos:</span>
+                        <span class="stat-value" id="activeUsers">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>Status:</span>
+                        <span class="stat-value" id="status">Online</span>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <h3>⚙️ Controles</h3>
+                    <button class="btn btn-clear" onclick="clearMessages()">
+                        🗑️ Limpar Mensagens
+                    </button>
+                    <button class="btn btn-toggle" onclick="toggleMessages()" id="toggleBtn">
+                        ⏸️ Pausar Mensagens
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        let messagesEnabled = true;
+        let messageCount = 0;
+
+        // Carregar QR Code
+        async function loadQRCode() {
+            try {
+                const response = await fetch('/qr-code');
+                const data = await response.json();
+                document.getElementById('qrCode').src = data.qrCode;
+            } catch (error) {
+                console.error('Erro ao carregar QR Code:', error);
+            }
+        }
+
+        // Receber nova mensagem
+        socket.on('new-message', (message) => {
+            if (messagesEnabled) {
+                addMessageToUI(message);
+                messageCount++;
+                updateStats();
+            }
+        });
+
+        // Receber mensagens anteriores
+        socket.on('previous-messages', (messages) => {
+            messages.forEach(message => {
+                addMessageToUI(message);
+                messageCount++;
+            });
+            updateStats();
+        });
+
+        // Adicionar mensagem à interface
+        function addMessageToUI(message) {
+            const messagesList = document.getElementById('messagesList');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+
+            const timestamp = new Date(message.timestamp).toLocaleTimeString('pt-BR');
+
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <span class="username">${message.username}</span>
+                    <span class="timestamp">${timestamp}</span>
+                </div>
+                <div class="message-text">${message.text}</div>
+            `;
+
+            messagesList.appendChild(messageDiv);
+            messagesList.scrollTop = messagesList.scrollHeight;
+
+            // Remover mensagens antigas se houver muitas
+            if (messagesList.children.length > 50) {
+                messagesList.removeChild(messagesList.firstChild);
+            }
+        }
+
+        // Atualizar estatísticas
+        function updateStats() {
+            document.getElementById('totalMessages').textContent = messageCount;
+        }
+
+        // Limpar mensagens
+        function clearMessages() {
+            document.getElementById('messagesList').innerHTML = '';
+            messageCount = 0;
+            updateStats();
+        }
+
+        // Pausar/Retomar mensagens
+        function toggleMessages() {
+            messagesEnabled = !messagesEnabled;
+            const btn = document.getElementById('toggleBtn');
+
+            if (messagesEnabled) {
+                btn.innerHTML = '⏸️ Pausar Mensagens';
+                btn.classList.remove('pulse');
+            } else {
+                btn.innerHTML = '▶️ Retomar Mensagens';
+                btn.classList.add('pulse');
+            }
+        }
+
+        // Carregar QR Code ao iniciar
+        loadQRCode();
+
+        // Atualizar usuários ativos periodicamente
+        setInterval(() => {
+            socket.emit('get-active-users');
+        }, 5000);
+
+        socket.on('active-users-count', (count) => {
+            document.getElementById('activeUsers').textContent = count;
+        });
+    </script>
+</body>
+
+</html>

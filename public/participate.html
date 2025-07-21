@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Participar da Live - TikTok Interactive</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            height: 70vh;
+        }
+
+        .messages-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+        }
+
+        .messages-section h2 {
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .message {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            border-left: 3px solid #ffd93d;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .username {
+            font-weight: bold;
+            color: #ffd93d;
+        }
+
+        .timestamp {
+            font-size: 0.7rem;
+        }
+
+        .message-text {
+            font-size: 1rem;
+            line-height: 1.3;
+        }
+
+        .input-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .input-section h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .username-input {
+            margin-bottom: 15px;
+        }
+
+        .username-input label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .username-input input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .message-input {
+            margin-bottom: 15px;
+        }
+
+        .message-input label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .message-input textarea {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            resize: vertical;
+            min-height: 80px;
+            font-family: inherit;
+        }
+
+        .send-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            background: #ffd93d;
+            color: #333;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: #ffed4e;
+            transform: translateY(-2px);
+        }
+
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status {
+            text-align: center;
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .status.connected {
+            background: rgba(76, 175, 80, 0.3);
+            color: #4caf50;
+        }
+
+        .status.disconnected {
+            background: rgba(244, 67, 54, 0.3);
+            color: #f44336;
+        }
+
+        .quick-messages {
+            margin-top: 20px;
+        }
+
+        .quick-messages h4 {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .quick-btn {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 5px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .typing-indicator {
+            font-style: italic;
+            opacity: 0.7;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎤 Participar da Live</h1>
+            <p>Envie suas mensagens e veja as dos outros participantes!</p>
+        </div>
+
+        <div class="main-content">
+            <div class="messages-section">
+                <h2>💬 Mensagens em Tempo Real</h2>
+                <div id="messagesList"></div>
+                <div id="typingIndicator" class="typing-indicator" style="display: none;">
+                    Alguém está digitando...
+                </div>
+            </div>
+
+            <div class="input-section">
+                <h3>✍️ Enviar Mensagem</h3>
+
+                <div class="username-input">
+                    <label for="username">Seu Nome:</label>
+                    <input type="text" id="username" placeholder="Digite seu nome" maxlength="20">
+                </div>
+
+                <div class="message-input">
+                    <label for="messageText">Sua Mensagem:</label>
+                    <textarea id="messageText" placeholder="Digite sua mensagem aqui..." maxlength="200"></textarea>
+                </div>
+
+                <button class="send-btn" onclick="sendMessage()" id="sendBtn">
+                    📤 Enviar Mensagem
+                </button>
+
+                <div id="status" class="status disconnected">
+                    🔴 Desconectado
+                </div>
+
+                <div class="quick-messages">
+                    <h4>⚡ Mensagens Rápidas</h4>
+                    <button class="quick-btn" onclick="sendQuickMessage('Oi! 👋')">Oi! 👋</button>
+                    <button class="quick-btn" onclick="sendQuickMessage('Muito bom! 👍')">Muito bom! 👍</button>
+                    <button class="quick-btn" onclick="sendQuickMessage('Amei! ❤️')">Amei! ❤️</button>
+                    <button class="quick-btn" onclick="sendQuickMessage('Continue assim! 🔥')">Continue assim!
+                        🔥</button>
+                    <button class="quick-btn" onclick="sendQuickMessage('Parabéns! 🎉')">Parabéns! 🎉</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const socket = io();
+        let username = '';
+        let isConnected = false;
+
+        // Elementos DOM
+        const usernameInput = document.getElementById('username');
+        const messageText = document.getElementById('messageText');
+        const sendBtn = document.getElementById('sendBtn');
+        const statusDiv = document.getElementById('status');
+        const messagesList = document.getElementById('messagesList');
+        const typingIndicator = document.getElementById('typingIndicator');
+
+        // Conectar ao servidor
+        socket.on('connect', () => {
+            isConnected = true;
+            updateStatus('🟢 Conectado', 'connected');
+            console.log('Conectado ao servidor');
+        });
+
+        socket.on('disconnect', () => {
+            isConnected = false;
+            updateStatus('🔴 Desconectado', 'disconnected');
+            console.log('Desconectado do servidor');
+        });
+
+        // Receber nova mensagem
+        socket.on('new-message', (message) => {
+            addMessageToUI(message);
+        });
+
+        // Receber mensagens anteriores
+        socket.on('previous-messages', (messages) => {
+            messages.forEach(message => {
+                addMessageToUI(message);
+            });
+        });
+
+        // Usuário se identificou
+        socket.on('username-set', (name) => {
+            username = name;
+            console.log('Nome definido:', username);
+        });
+
+        // Adicionar mensagem à interface
+        function addMessageToUI(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+
+            const timestamp = new Date(message.timestamp).toLocaleTimeString('pt-BR');
+
+            messageDiv.innerHTML = `
+                <div class="message-header">
+                    <span class="username">${message.username}</span>
+                    <span class="timestamp">${timestamp}</span>
+                </div>
+                <div class="message-text">${message.text}</div>
+            `;
+
+            messagesList.appendChild(messageDiv);
+            messagesList.scrollTop = messagesList.scrollHeight;
+
+            // Remover mensagens antigas se houver muitas
+            if (messagesList.children.length > 30) {
+                messagesList.removeChild(messagesList.firstChild);
+            }
+        }
+
+        // Enviar mensagem
+        function sendMessage() {
+            const text = messageText.value.trim();
+            const name = usernameInput.value.trim();
+
+            if (!text) {
+                alert('Digite uma mensagem!');
+                return;
+            }
+
+            if (!name) {
+                alert('Digite seu nome!');
+                return;
+            }
+
+            if (!isConnected) {
+                alert('Você não está conectado!');
+                return;
+            }
+
+            // Definir nome se ainda não foi definido
+            if (name !== username) {
+                socket.emit('set-username', name);
+            }
+
+            // Enviar mensagem
+            socket.emit('send-message', {
+                text: text,
+                username: name
+            });
+
+            // Limpar campo de mensagem
+            messageText.value = '';
+            messageText.focus();
+        }
+
+        // Enviar mensagem rápida
+        function sendQuickMessage(text) {
+            const name = usernameInput.value.trim();
+
+            if (!name) {
+                alert('Digite seu nome primeiro!');
+                usernameInput.focus();
+                return;
+            }
+
+            if (!isConnected) {
+                alert('Você não está conectado!');
+                return;
+            }
+
+            // Definir nome se ainda não foi definido
+            if (name !== username) {
+                socket.emit('set-username', name);
+            }
+
+            // Enviar mensagem
+            socket.emit('send-message', {
+                text: text,
+                username: name
+            });
+        }
+
+        // Atualizar status
+        function updateStatus(text, className) {
+            statusDiv.textContent = text;
+            statusDiv.className = `status ${className}`;
+        }
+
+        // Enviar mensagem com Enter
+        messageText.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Definir nome com Enter
+        usernameInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                messageText.focus();
+            }
+        });
+
+        // Indicador de digitação
+        let typingTimer;
+        messageText.addEventListener('input', () => {
+            clearTimeout(typingTimer);
+            typingIndicator.style.display = 'block';
+
+            typingTimer = setTimeout(() => {
+                typingIndicator.style.display = 'none';
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
