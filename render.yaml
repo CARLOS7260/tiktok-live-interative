@@ -3,8 +3,11 @@ services:
     name: tiktok-live-interactive
     env: node
     buildCommand: npm install
-    startCommand: node server.js
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
-    healthCheckPath: /dashboard 
+      - key: PORT
+        value: 10000
+    healthCheckPath: /
+    autoDeploy: true 
