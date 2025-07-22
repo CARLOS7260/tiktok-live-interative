@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌟 Experiência 4D - TikTok Live Interactive</title>
+    <title>🎮 Sistema 4D Revolucionário - Participante</title>
     <script src="/socket.io/socket.io.js"></script>
     <style>
         * {
@@ -15,565 +14,195 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-            color: #fff;
-            overflow-x: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            position: relative;
+            color: white;
+            overflow-x: hidden;
         }
 
-        /* Efeitos de fundo dinâmicos */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: -1;
-            animation: backgroundShift 20s ease-in-out infinite;
-        }
-
-        @keyframes backgroundShift {
-
-            0%,
-            100% {
-                transform: scale(1) rotate(0deg);
-            }
-
-            50% {
-                transform: scale(1.1) rotate(1deg);
-            }
-        }
-
-        /* Header futurístico */
-        .header {
-            background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 46, 0.9) 50%, rgba(0, 0, 0, 0.8) 100%);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid #00d4ff;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
-            animation: scanLine 3s linear infinite;
-        }
-
-        @keyframes scanLine {
-            0% {
-                left: -100%;
-            }
-
-            100% {
-                left: 100%;
-            }
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
-            position: relative;
-            z-index: 1;
-        }
-
-        .header p {
-            font-size: 1.2em;
-            color: #ccc;
-            margin-top: 10px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Container principal */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            gap: 20px;
-            min-height: calc(100vh - 200px);
         }
 
-        /* Painel de perfil */
-        .profile-panel {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid #00d4ff;
-            border-radius: 15px;
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(0, 0, 0, 0.3);
             padding: 20px;
-            position: relative;
-            overflow: hidden;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
         }
 
-        .profile-panel::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #00d4ff, #ff6b6b, #4ecdc4);
-            animation: borderGlow 2s ease-in-out infinite;
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        @keyframes borderGlow {
-
-            0%,
-            100% {
-                opacity: 0.5;
-            }
-
-            50% {
-                opacity: 1;
-            }
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
         }
 
-        .profile-section {
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
             margin-bottom: 20px;
         }
 
-        .profile-section h3 {
-            color: #00d4ff;
-            margin-bottom: 15px;
-            text-align: center;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .profile-info {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 4px solid #00d4ff;
+        .card h2 {
+            margin-bottom: 15px;
+            color: #4ecdc4;
+            font-size: 1.5em;
+        }
+
+        .input-group {
             margin-bottom: 15px;
         }
 
-        .profile-info label {
+        .input-group label {
             display: block;
             margin-bottom: 5px;
-            color: #ccc;
-            font-size: 0.9em;
+            font-weight: bold;
         }
 
-        .profile-info input {
+        .input-group input, .input-group textarea {
             width: 100%;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #00d4ff;
-            border-radius: 5px;
-            color: #fff;
-            font-size: 1em;
-        }
-
-        .profile-info input:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-        }
-
-        .stats-display {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            flex: 1;
-            margin: 0 5px;
-        }
-
-        .stat-number {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #4ecdc4;
-            text-shadow: 0 0 5px rgba(78, 205, 196, 0.5);
-        }
-
-        .stat-label {
-            font-size: 0.8em;
-            color: #ccc;
-            margin-top: 5px;
-        }
-
-        .achievements {
-            margin-top: 20px;
-        }
-
-        .achievement {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            margin-bottom: 8px;
-            border-left: 3px solid #ff6b6b;
-            transition: all 0.3s ease;
-        }
-
-        .achievement:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(5px);
-        }
-
-        .achievement-icon {
-            font-size: 1.5em;
-            margin-right: 10px;
-        }
-
-        .achievement-info {
-            flex: 1;
-        }
-
-        .achievement-name {
-            font-weight: bold;
-            color: #ff6b6b;
-        }
-
-        .achievement-points {
-            font-size: 0.8em;
-            color: #ccc;
-        }
-
-        /* Painel central - Chat e Efeitos */
-        .main-panel {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid #ff6b6b;
-            border-radius: 15px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .chat-section {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 20px;
-        }
-
-        .chat-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ff6b6b;
-        }
-
-        .chat-title {
-            font-size: 1.5em;
-            color: #ff6b6b;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
-        }
-
-        .online-indicator {
-            display: flex;
-            align-items: center;
-            color: #4ecdc4;
-            font-size: 0.9em;
-        }
-
-        .online-dot {
-            width: 8px;
-            height: 8px;
-            background: #4ecdc4;
-            border-radius: 50%;
-            margin-right: 5px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        .messages-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
-            max-height: 400px;
-            margin-bottom: 15px;
-        }
-
-        .message {
-            background: rgba(255, 255, 255, 0.05);
-            margin-bottom: 10px;
             padding: 12px;
-            border-radius: 10px;
-            border-left: 4px solid #4ecdc4;
-            animation: messageSlide 0.5s ease-out;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .message::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(78, 205, 196, 0.1), transparent);
-            transform: translateX(-100%);
-            animation: messageGlow 2s ease-in-out infinite;
-        }
-
-        @keyframes messageSlide {
-            from {
-                opacity: 0;
-                transform: translateX(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes messageGlow {
-
-            0%,
-            100% {
-                transform: translateX(-100%);
-            }
-
-            50% {
-                transform: translateX(100%);
-            }
-        }
-
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-
-        .message-user {
-            font-weight: bold;
-            color: #4ecdc4;
-            text-shadow: 0 0 5px rgba(78, 205, 196, 0.5);
-        }
-
-        .message-time {
-            font-size: 0.8em;
-            color: #888;
-        }
-
-        .message-text {
-            color: #fff;
-            line-height: 1.4;
-        }
-
-        .message-effects {
-            margin-top: 5px;
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .effect-tag {
-            background: rgba(255, 107, 107, 0.3);
-            color: #ff6b6b;
-            padding: 2px 6px;
-            border-radius: 10px;
-            font-size: 0.7em;
-            border: 1px solid #ff6b6b;
-        }
-
-        .input-section {
-            display: flex;
-            gap: 10px;
-            align-items: flex-end;
-        }
-
-        .message-input {
-            flex: 1;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #ff6b6b;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 1em;
-            resize: none;
-            min-height: 50px;
-            max-height: 100px;
-        }
-
-        .message-input:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
-        }
-
-        .send-btn {
-            padding: 12px 20px;
-            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
             border: none;
             border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
             color: white;
-            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .input-group input::placeholder, .input-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            margin: 5px;
         }
 
-        .send-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .send-btn:hover::before {
-            left: 100%;
-        }
-
-        .send-btn:hover {
+        .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Efeitos especiais */
-        .effects-section {
-            margin-top: 20px;
-        }
-
-        .effects-title {
-            font-size: 1.3em;
-            color: #4ecdc4;
-            margin-bottom: 15px;
-            text-align: center;
-            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .effects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 10px;
-            margin-bottom: 15px;
+            margin-top: 15px;
         }
 
         .effect-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
             padding: 10px;
-            background: linear-gradient(45deg, #4ecdc4, #44a08d);
-            border: none;
             border-radius: 8px;
-            color: white;
-            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            font-size: 0.9em;
-        }
-
-        .effect-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .effect-btn:hover::before {
-            left: 100%;
+            text-align: center;
         }
 
         .effect-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
-        }
-
-        .effect-btn.disabled {
-            background: #666;
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        .quick-messages {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 10px;
-        }
-
-        .quick-msg {
-            padding: 6px 12px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid #ff6b6b;
-            border-radius: 15px;
-            color: #ff6b6b;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.8em;
-        }
-
-        .quick-msg:hover {
-            background: rgba(255, 107, 107, 0.2);
+            border-color: #4ecdc4;
             transform: scale(1.05);
         }
 
-        /* Painel lateral direito - Gamificação */
-        .gamification-panel {
-            background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid #4ecdc4;
-            border-radius: 15px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
+        .effect-btn.expensive {
+            border-color: #ff6b6b;
+        }
+
+        .effect-btn.affordable {
+            border-color: #4ecdc4;
+        }
+
+        .messages-container {
+            height: 300px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .message {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #4ecdc4;
+        }
+
+        .message .user-name {
+            font-weight: bold;
+            color: #4ecdc4;
+        }
+
+        .message .timestamp {
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #4ecdc4;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.8;
         }
 
         .leaderboard {
-            margin-bottom: 20px;
-        }
-
-        .leaderboard h3 {
-            color: #4ecdc4;
-            margin-bottom: 15px;
-            text-align: center;
-            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+            max-height: 200px;
+            overflow-y: auto;
         }
 
         .leaderboard-item {
@@ -581,106 +210,31 @@
             justify-content: space-between;
             align-items: center;
             padding: 8px;
-            margin-bottom: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 6px;
-            border-left: 3px solid #4ecdc4;
-            transition: all 0.3s ease;
-        }
-
-        .leaderboard-item:hover {
+            margin-bottom: 5px;
             background: rgba(255, 255, 255, 0.1);
-            transform: translateX(3px);
+            border-radius: 5px;
         }
 
-        .leaderboard-rank {
+        .rank {
             font-weight: bold;
             color: #ff6b6b;
-            min-width: 25px;
         }
 
-        .leaderboard-name {
-            flex: 1;
-            margin: 0 8px;
-            color: #fff;
-            font-size: 0.9em;
-        }
-
-        .leaderboard-points {
-            color: #4ecdc4;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .ai-section {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 10px;
-            border: 1px solid #00d4ff;
-        }
-
-        .ai-section h4 {
-            color: #00d4ff;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .ai-message {
-            background: rgba(0, 212, 255, 0.2);
+        .achievement {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #333;
             padding: 10px;
             border-radius: 8px;
-            margin-bottom: 8px;
-            border-left: 3px solid #00d4ff;
-            font-style: italic;
+            margin: 10px 0;
+            text-align: center;
+            animation: achievementPulse 2s ease-in-out;
         }
 
-        /* Animações de partículas */
-        .particle {
-            position: fixed;
-            width: 3px;
-            height: 3px;
-            background: #00d4ff;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: float 6s ease-in-out infinite;
+        @keyframes achievementPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
 
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0px) rotate(0deg);
-                opacity: 0;
-            }
-
-            50% {
-                opacity: 1;
-            }
-        }
-
-        /* Efeitos holográficos */
-        .hologram {
-            position: absolute;
-            pointer-events: none;
-            animation: hologramFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes hologramFloat {
-
-            0%,
-            100% {
-                transform: translateY(0px) scale(1);
-                opacity: 0.7;
-            }
-
-            50% {
-                transform: translateY(-10px) scale(1.1);
-                opacity: 1;
-            }
-        }
-
-        /* Notificações */
         .notification {
             position: fixed;
             top: 20px;
@@ -688,1156 +242,465 @@
             background: linear-gradient(45deg, #4ecdc4, #44a08d);
             color: white;
             padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
             z-index: 1000;
-            animation: notificationSlide 0.5s ease-out;
+            animation: slideIn 0.5s ease-out;
         }
 
-        @keyframes notificationSlide {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
-        /* Responsividade */
-        @media (max-width: 1200px) {
-            .container {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .container {
-                padding: 10px;
-            }
-
-            .input-section {
-                flex-direction: column;
-            }
-
-            .effects-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* Loading screen */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-spinner {
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(0, 212, 255, 0.3);
-            border-top: 3px solid #00d4ff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        /* Efeitos visuais */
         .visual-effect {
             position: fixed;
             z-index: 999;
             pointer-events: none;
-            text-shadow: 0 0 20px currentColor;
+            animation: defaultPulse 3s ease-in-out;
         }
 
-        @keyframes rainbowPulse {
-
-            0%,
-            100% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.5) rotate(180deg);
-                opacity: 0.8;
-            }
+        .effect-user-name {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.8em;
+            color: #00d4ff;
+            text-shadow: 0 0 10px #00d4ff;
         }
 
-        @keyframes fireBurn {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            25% {
-                transform: scale(1.2) rotate(-5deg);
-                opacity: 0.9;
-            }
-
-            50% {
-                transform: scale(1.4) rotate(5deg);
-                opacity: 0.8;
-            }
-
-            75% {
-                transform: scale(1.2) rotate(-3deg);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        /* ANIMAÇÕES DOS EFEITOS BÁSICOS */
+        @keyframes defaultPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
         }
 
-        @keyframes iceShine {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-                filter: brightness(1);
-            }
-
-            50% {
-                transform: scale(1.3);
-                opacity: 0.9;
-                filter: brightness(1.5);
-            }
+        @keyframes rainbowTrail {
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg); }
+            100% { transform: scale(2) rotate(360deg); filter: hue-rotate(360deg); }
         }
 
-        @keyframes electricFlash {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            25% {
-                transform: scale(1.5);
-                opacity: 0.7;
-            }
-
-            50% {
-                transform: scale(1.2);
-                opacity: 0.9;
-            }
-
-            75% {
-                transform: scale(1.8);
-                opacity: 0.6;
-            }
+        @keyframes fireAura {
+            0% { transform: scale(1); filter: hue-rotate(0deg) brightness(1); }
+            50% { transform: scale(1.5); filter: hue-rotate(30deg) brightness(1.5); }
+            100% { transform: scale(1); filter: hue-rotate(0deg) brightness(1); }
         }
 
-        @keyframes cosmicFloat {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-
-            50% {
-                transform: translateY(-20px) rotate(180deg);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translateY(0) rotate(360deg);
-                opacity: 1;
-            }
+        @keyframes iceCrystal {
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(180deg); }
+            100% { transform: scale(1.8) rotate(180deg); filter: hue-rotate(360deg); }
         }
 
-        @keyframes hologramFlicker {
+        @keyframes electricSpark {
+            0%, 100% { transform: scale(1); filter: brightness(1); }
+            25% { transform: scale(1.3); filter: brightness(2); }
+            50% { transform: scale(1.1); filter: brightness(1.5); }
+            75% { transform: scale(1.4); filter: brightness(2.5); }
+        }
 
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-                filter: hue-rotate(0deg);
-            }
+        @keyframes cosmicDust {
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            100% { transform: scale(3) rotate(720deg); opacity: 0; }
+        }
 
-            25% {
-                transform: scale(1.1);
-                opacity: 0.8;
-                filter: hue-rotate(90deg);
-            }
-
-            50% {
-                transform: scale(1.2);
-                opacity: 0.9;
-                filter: hue-rotate(180deg);
-            }
-
-            75% {
-                transform: scale(1.1);
-                opacity: 0.8;
-                filter: hue-rotate(270deg);
-            }
+        @keyframes hologramAvatar {
+            0% { transform: scale(1) translateY(0); opacity: 1; }
+            50% { transform: scale(1.2) translateY(-20px); opacity: 0.8; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
         }
 
         @keyframes soundWave {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            33% {
-                transform: scale(1.3);
-                opacity: 0.8;
-            }
-
-            66% {
-                transform: scale(1.1);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: scale(1.5);
-                opacity: 0.7;
-            }
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2.5); opacity: 0; }
         }
 
         @keyframes timeWarp {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-
-            25% {
-                transform: scale(1.2) rotate(90deg);
-                opacity: 0.9;
-            }
-
-            50% {
-                transform: scale(1.4) rotate(180deg);
-                opacity: 0.8;
-            }
-
-            75% {
-                transform: scale(1.2) rotate(270deg);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: scale(1) rotate(360deg);
-                opacity: 1;
-            }
-        }
-
-        @keyframes defaultPulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.2);
-                opacity: 0.8;
-            }
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg); }
+            50% { transform: scale(0.5) rotate(180deg); filter: hue-rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); filter: hue-rotate(360deg); }
         }
 
         /* ANIMAÇÕES DOS EFEITOS REVOLUCIONÁRIOS */
         @keyframes realityShift {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(2) rotate(180deg);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1) rotate(360deg);
-                opacity: 1;
-            }
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(2) rotate(180deg); opacity: 0.8; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
         }
 
         @keyframes mindControl {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-
-            25% {
-                transform: scale(1.5) rotate(90deg);
-                opacity: 0.9;
-            }
-
-            50% {
-                transform: scale(2) rotate(180deg);
-                opacity: 0.8;
-            }
-
-            75% {
-                transform: scale(1.5) rotate(270deg);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: scale(1) rotate(360deg);
-                opacity: 1;
-            }
-        }
-
-        @keyframes controlWave {
-            0% {
-                width: 0px;
-                height: 0px;
-                opacity: 1;
-            }
-
-            100% {
-                width: 300px;
-                height: 300px;
-                opacity: 0;
-            }
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg); }
+            25% { transform: scale(1.5) rotate(90deg); filter: hue-rotate(90deg); }
+            50% { transform: scale(0.8) rotate(180deg); filter: hue-rotate(180deg); }
+            75% { transform: scale(1.3) rotate(270deg); filter: hue-rotate(270deg); }
+            100% { transform: scale(1) rotate(360deg); filter: hue-rotate(360deg); }
         }
 
         @keyframes dimensionPortal {
-            0% {
-                transform: translate(-50%, -50%) scale(1) rotate(0deg);
-                opacity: 1;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1) rotate(360deg);
-                opacity: 1;
-            }
-        }
-
-        @keyframes dimensionalParticle {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(0) translateY(-100px);
-                opacity: 0;
-            }
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(2.5) rotate(180deg); opacity: 0.6; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
         }
 
         @keyframes quantumEntanglement {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-
-            25% {
-                transform: scale(1.3) rotate(90deg);
-                opacity: 0.9;
-            }
-
-            50% {
-                transform: scale(1.6) rotate(180deg);
-                opacity: 0.8;
-            }
-
-            75% {
-                transform: scale(1.3) rotate(270deg);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: scale(1) rotate(360deg);
-                opacity: 1;
-            }
-        }
-
-        @keyframes quantumConnection {
-            0% {
-                opacity: 1;
-                transform: scaleY(1);
-            }
-
-            50% {
-                opacity: 0.5;
-                transform: scaleY(1.5);
-            }
-
-            100% {
-                opacity: 0;
-                transform: scaleY(0);
-            }
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg) brightness(1); }
+            33% { transform: scale(1.8) rotate(120deg); filter: hue-rotate(120deg) brightness(1.5); }
+            66% { transform: scale(0.7) rotate(240deg); filter: hue-rotate(240deg) brightness(0.8); }
+            100% { transform: scale(1) rotate(360deg); filter: hue-rotate(360deg) brightness(1); }
         }
 
         @keyframes neuralLink {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.3);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes neuralNode {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.5);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.6) rotate(180deg); opacity: 0.7; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
         }
 
         @keyframes holographicTouch {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.4);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes touchWave {
-            0% {
-                width: 0px;
-                height: 0px;
-                opacity: 1;
-            }
-
-            100% {
-                width: 200px;
-                height: 200px;
-                opacity: 0;
-            }
+            0% { transform: scale(1) translateY(0); opacity: 1; }
+            50% { transform: scale(1.4) translateY(-30px); opacity: 0.8; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
         }
 
         @keyframes soundVisualization {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes soundBar {
-            0% {
-                height: 0%;
-                opacity: 1;
-            }
-
-            50% {
-                height: 100%;
-                opacity: 0.8;
-            }
-
-            100% {
-                height: 0%;
-                opacity: 0;
-            }
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg); }
+            100% { transform: scale(2.2) rotate(360deg); filter: hue-rotate(360deg); }
         }
 
         @keyframes emotionWave {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.3);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes emotionParticle {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.3);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.7) rotate(180deg); opacity: 0.6; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
         }
 
         @keyframes timeReversal {
-            0% {
-                transform: translate(-50%, -50%) scale(1) rotate(0deg);
-                opacity: 1;
-            }
-
-            25% {
-                transform: translate(-50%, -50%) scale(1.2) rotate(90deg);
-                opacity: 0.9;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.4) rotate(180deg);
-                opacity: 0.8;
-            }
-
-            75% {
-                transform: translate(-50%, -50%) scale(1.2) rotate(270deg);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1) rotate(360deg);
-                opacity: 1;
-            }
-        }
-
-        @keyframes timeSpiral {
-            0% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.5) rotate(180deg);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1) rotate(360deg);
-                opacity: 1;
-            }
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg); }
+            25% { transform: scale(0.5) rotate(-90deg); filter: hue-rotate(-90deg); }
+            50% { transform: scale(2) rotate(-180deg); filter: hue-rotate(-180deg); }
+            75% { transform: scale(0.8) rotate(-270deg); filter: hue-rotate(-270deg); }
+            100% { transform: scale(1) rotate(-360deg); filter: hue-rotate(-360deg); }
         }
 
         @keyframes realityMerge {
-            0% {
-                transform: translate(-50%, -50%) scale(1) rotate(0deg);
-                opacity: 1;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.4) rotate(180deg);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1) rotate(360deg);
-                opacity: 1;
-            }
-        }
-
-        @keyframes realityLayer {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.3);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(2.8) rotate(180deg); opacity: 0.5; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
         }
 
         @keyframes consciousnessExpansion {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes consciousnessAura {
-            0% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.5;
-            }
-
-            100% {
-                opacity: 0;
-            }
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg) brightness(1); }
+            33% { transform: scale(1.9) rotate(120deg); filter: hue-rotate(120deg) brightness(1.3); }
+            66% { transform: scale(0.6) rotate(240deg); filter: hue-rotate(240deg) brightness(0.7); }
+            100% { transform: scale(1) rotate(360deg); filter: hue-rotate(360deg) brightness(1); }
         }
 
         @keyframes quantumTeleport {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-
-            25% {
-                transform: translate(-50%, -50%) scale(1.3);
-                opacity: 0.9;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.6);
-                opacity: 0.8;
-            }
-
-            75% {
-                transform: translate(-50%, -50%) scale(1.3);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes teleportParticle {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.5);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(3) rotate(180deg); opacity: 0.3; }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; }
         }
 
         @keyframes neuralSync {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes dnaStrand {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.3);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg); }
+            50% { transform: scale(1.8) rotate(180deg); filter: hue-rotate(180deg); }
+            100% { transform: scale(1) rotate(360deg); filter: hue-rotate(360deg); }
         }
 
         @keyframes dreamWalker {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.3);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-        }
-
-        @keyframes dreamBubble {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-
-            50% {
-                transform: scale(1.4);
-                opacity: 0.8;
-            }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(1) translateY(0) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.5) translateY(-25px) rotate(180deg); opacity: 0.7; }
+            100% { transform: scale(1) translateY(0) rotate(360deg); opacity: 1; }
         }
 
         @keyframes realityGlitch {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-
-            25% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.9;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.4);
-                opacity: 0.8;
-            }
-
-            75% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(1) rotate(0deg); filter: hue-rotate(0deg) contrast(1); }
+            25% { transform: scale(1.3) rotate(90deg); filter: hue-rotate(90deg) contrast(1.5); }
+            50% { transform: scale(0.9) rotate(180deg); filter: hue-rotate(180deg) contrast(0.8); }
+            75% { transform: scale(1.4) rotate(270deg); filter: hue-rotate(270deg) contrast(1.7); }
+            100% { transform: scale(1) rotate(360deg); filter: hue-rotate(360deg) contrast(1); }
         }
 
         @keyframes cosmicConsciousness {
-            0% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
-
-            25% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.9;
-            }
-
-            50% {
-                transform: translate(-50%, -50%) scale(1.4);
-                opacity: 0.8;
-            }
-
-            75% {
-                transform: translate(-50%, -50%) scale(1.2);
-                opacity: 0.9;
-            }
-
-            100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(1) rotate(0deg); opacity: 1; filter: hue-rotate(0deg) brightness(1); }
+            25% { transform: scale(2.2) rotate(90deg); opacity: 0.8; filter: hue-rotate(90deg) brightness(1.4); }
+            50% { transform: scale(0.7) rotate(180deg); opacity: 0.6; filter: hue-rotate(180deg) brightness(0.8); }
+            75% { transform: scale(2.5) rotate(270deg); opacity: 0.9; filter: hue-rotate(270deg) brightness(1.6); }
+            100% { transform: scale(1) rotate(360deg); opacity: 1; filter: hue-rotate(360deg) brightness(1); }
         }
 
-        @keyframes cosmicElement {
-            0% {
-                transform: scale(1);
-                opacity: 1;
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
             }
-
-            50% {
-                transform: scale(1.3);
-                opacity: 0.8;
+            
+            .header h1 {
+                font-size: 2em;
             }
-
-            100% {
-                transform: scale(1);
-                opacity: 1;
+            
+            .effects-grid {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             }
-        }
-
-        .loading-text {
-            color: #00d4ff;
-            font-size: 1.2em;
-            text-align: center;
         }
     </style>
 </head>
-
 <body>
-    <!-- Loading Screen -->
-    <div class="loading-screen" id="loading-screen">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">
-            <div>🌟 Conectando ao Sistema 4D...</div>
-            <div style="font-size: 0.8em; margin-top: 10px; color: #ccc;">Preparando experiência revolucionária</div>
-        </div>
-    </div>
-
-    <div class="header">
-        <h1>🌟 EXPERIÊNCIA 4D REVOLUCIONÁRIA</h1>
-        <p>Entre no futuro da interação digital!</p>
-    </div>
-
     <div class="container">
-        <!-- Painel de Perfil -->
-        <div class="profile-panel">
-            <div class="profile-section">
-                <h3>👤 SEU PERFIL</h3>
-                <div class="profile-info">
-                    <label for="username">Seu Nome:</label>
-                    <input type="text" id="username" placeholder="Digite seu nome..." maxlength="20">
-                </div>
-                <button class="send-btn" onclick="setUsername()" style="width: 100%; margin-top: 10px;">
-                    ✅ Confirmar Nome
-                </button>
-            </div>
+        <div class="header">
+            <h1>🌟 Sistema 4D Revolucionário ��</h1>
+            <p>Participe da live mais inovadora do TikTok! Use seus pontos para ativar efeitos especiais!</p>
+        </div>
 
-            <div class="profile-section">
-                <h3>📊 SUAS ESTATÍSTICAS</h3>
-                <div class="stats-display">
+        <div class="main-content">
+            <!-- Perfil e Estatísticas -->
+            <div class="card">
+                <h2>👤 Seu Perfil</h2>
+                <div class="input-group">
+                    <label for="userName">Seu Nome:</label>
+                    <input type="text" id="userName" placeholder="Digite seu nome">
+                </div>
+                <button class="btn" onclick="setName()">Definir Nome</button>
+                
+                <div class="stats-grid">
                     <div class="stat-item">
-                        <div class="stat-number" id="user-points">0</div>
+                        <div class="stat-value" id="userPoints">500</div>
                         <div class="stat-label">Pontos</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number" id="user-level">1</div>
+                        <div class="stat-value" id="userLevel">1</div>
                         <div class="stat-label">Nível</div>
                     </div>
-                </div>
-            </div>
-
-            <div class="profile-section achievements">
-                <h3>🏆 SEUS ACHIEVEMENTS</h3>
-                <div id="achievements-list">
-                    <div style="text-align: center; color: #888; padding: 20px;">
-                        Complete ações para desbloquear achievements!
+                    <div class="stat-item">
+                        <div class="stat-value" id="userEffects">0</div>
+                        <div class="stat-label">Efeitos</div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Painel Principal -->
-        <div class="main-panel">
-            <div class="chat-section">
-                <div class="chat-header">
-                    <h2 class="chat-title">💬 CHAT 4D</h2>
-                    <div class="online-indicator">
-                        <div class="online-dot"></div>
-                        <span id="online-count">0</span> online
-                    </div>
-                </div>
-
-                <div class="messages-container" id="messages-container">
-                    <div style="text-align: center; color: #888; padding: 20px;">
-                        Bem-vindo à experiência 4D! Digite sua primeira mensagem...
-                    </div>
-                </div>
-
-                <div class="input-section">
-                    <textarea class="message-input" id="message-input" placeholder="Digite sua mensagem 4D..."
-                        rows="2"></textarea>
-                    <button class="send-btn" onclick="sendMessage()">
-                        🚀 Enviar
-                    </button>
-                </div>
-
-                <div class="quick-messages">
-                    <div class="quick-msg" onclick="sendQuickMessage('🚀 UAU! Que experiência incrível!')">🚀 UAU! Que
-                        experiência incrível!</div>
-                    <div class="quick-msg" onclick="sendQuickMessage('✨ Magia digital em ação!')">✨ Magia digital em
-                        ação!</div>
-                    <div class="quick-msg" onclick="sendQuickMessage('🌟 Vocês são demais!')">🌟 Vocês são demais!</div>
-                    <div class="quick-msg" onclick="sendQuickMessage('🔥 Fogo no parquinho digital!')">🔥 Fogo no
-                        parquinho digital!</div>
-                </div>
-            </div>
-
-            <div class="effects-section">
-                <h3 class="effects-title">🎭 EFEITOS ESPECIAIS 4D</h3>
-                <div class="effects-grid" id="effects-grid">
+            <!-- Efeitos Especiais -->
+            <div class="card">
+                <h2>✨ Efeitos Revolucionários</h2>
+                <p>Use seus pontos para ativar efeitos únicos!</p>
+                <div class="effects-grid" id="effectsGrid">
                     <!-- Efeitos serão carregados dinamicamente -->
                 </div>
             </div>
         </div>
 
-        <!-- Painel de Gamificação -->
-        <div class="gamification-panel">
-            <div class="leaderboard">
-                <h3>🏆 RANKING DOS PARTICIPANTES</h3>
-                <div id="leaderboard-list">
-                    <div style="text-align: center; color: #888; padding: 20px;">
-                        Aguardando participantes...
-                    </div>
-                </div>
+        <!-- Mensagens -->
+        <div class="card">
+            <h2>�� Chat Interativo</h2>
+            <div class="input-group">
+                <label for="messageInput">Sua Mensagem:</label>
+                <textarea id="messageInput" rows="3" placeholder="Digite sua mensagem..."></textarea>
             </div>
+            <button class="btn" onclick="sendMessage()">Enviar Mensagem</button>
+            
+            <div class="messages-container" id="messagesContainer">
+                <!-- Mensagens aparecerão aqui -->
+            </div>
+        </div>
 
-            <div class="ai-section">
-                <h4>🤖 IA ASSISTENTE</h4>
-                <div id="ai-messages">
-                    <div class="ai-message">
-                        Olá! Sou sua IA assistente. Estou aqui para tornar sua experiência ainda mais incrível! 🌟
-                    </div>
-                </div>
+        <!-- Leaderboard -->
+        <div class="card">
+            <h2>🏆 Ranking dos Participantes</h2>
+            <div class="leaderboard" id="leaderboard">
+                <!-- Ranking será carregado dinamicamente -->
             </div>
         </div>
     </div>
 
     <script>
         const socket = io();
-        let username = '';
-        let userPoints = 0;
-        let userLevel = 1;
-        let userAchievements = [];
+        let userData = {
+            name: 'Anônimo',
+            points: 500,
+            level: 1,
+            effects: []
+        };
+
         let availableEffects = {};
-        let participants = [];
-        let messages = [];
+        let achievements = {};
 
-        // Inicialização
-        document.addEventListener('DOMContentLoaded', function () {
-            createParticles();
-            setupEventListeners();
-
-            // Simular carregamento
-            setTimeout(() => {
-                document.getElementById('loading-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('loading-screen').style.display = 'none';
-                }, 500);
-            }, 2000);
+        // Conectar ao servidor
+        socket.on('connect', () => {
+            console.log('Conectado ao servidor!');
+            showNotification('Conectado ao Sistema 4D! 🚀');
         });
 
-        // Criar partículas de fundo
-        function createParticles() {
-            for (let i = 0; i < 30; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * 100 + '%';
-                particle.style.top = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 6 + 's';
-                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
-                document.body.appendChild(particle);
+        // Receber dados iniciais
+        socket.on('initial_data', (data) => {
+            availableEffects = data.availableEffects;
+            achievements = data.achievements;
+            loadEffects();
+        });
+
+        // Receber nova mensagem
+        socket.on('new_message', (message) => {
+            addMessage(message);
+        });
+
+        // Efeito ativado
+        socket.on('effect_activated', (data) => {
+            showNotification(`${data.userName} ativou ${data.effectName}! ✨`);
+            createVisualEffect(data.effect, data.userName);
+        });
+
+        // Conquista desbloqueada
+        socket.on('achievement_unlocked', (achievement) => {
+            showAchievement(achievement);
+        });
+
+        // Pontos insuficientes
+        socket.on('insufficient_points', (data) => {
+            showNotification(`Pontos insuficientes! Você tem ${data.current}, precisa de ${data.required} 😅`);
+        });
+
+        // Definir nome
+        function setName() {
+            const name = document.getElementById('userName').value.trim();
+            if (name) {
+                userData.name = name;
+                socket.emit('set_name', { name });
+                showNotification(`Nome definido: ${name}! 👋`);
             }
-        }
-
-        // Configurar event listeners
-        function setupEventListeners() {
-            const messageInput = document.getElementById('message-input');
-            const usernameInput = document.getElementById('username');
-
-            messageInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter' && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                }
-            });
-
-            usernameInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    setUsername();
-                }
-            });
-        }
-
-        // Definir nome do usuário
-        function setUsername() {
-            const input = document.getElementById('username');
-            const name = input.value.trim();
-
-            if (name.length < 2) {
-                showNotification('❌ Nome deve ter pelo menos 2 caracteres!');
-                return;
-            }
-
-            username = name;
-            socket.emit('set_name', { name: username });
-
-            input.disabled = true;
-            input.style.background = 'rgba(78,205,196,0.2)';
-            input.style.borderColor = '#4ecdc4';
-
-            showNotification('✅ Nome definido com sucesso!');
         }
 
         // Enviar mensagem
         function sendMessage() {
-            const input = document.getElementById('message-input');
-            const text = input.value.trim();
-
-            if (!text) return;
-
-            if (!username) {
-                showNotification('❌ Defina seu nome primeiro!');
-                return;
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            
+            if (message) {
+                socket.emit('send_message', { message });
+                messageInput.value = '';
             }
-
-            socket.emit('send_message', {
-                text: text,
-                effects: [],
-                type: 'normal'
-            });
-
-            input.value = '';
-            input.focus();
-        }
-
-        // Enviar mensagem rápida
-        function sendQuickMessage(text) {
-            if (!username) {
-                showNotification('❌ Defina seu nome primeiro!');
-                return;
-            }
-
-            socket.emit('send_message', {
-                text: text,
-                effects: [],
-                type: 'quick'
-            });
         }
 
         // Ativar efeito
-        function activateEffect(effectName) {
-            if (!username) {
-                showNotification('❌ Defina seu nome primeiro!');
-                return;
-            }
-
-            socket.emit('activate_effect', { effect: effectName });
+        function activateEffect(effectKey) {
+            socket.emit('activate_effect', { effect: effectKey });
         }
 
-        // Criar holograma
-        function createHologram() {
-            if (!username) return;
+        // Carregar efeitos
+        function loadEffects() {
+            const effectsGrid = document.getElementById('effectsGrid');
+            effectsGrid.innerHTML = '';
 
-            socket.emit('holographic_reaction', {
-                type: 'sparkle',
-                position: { x: Math.random() * 100, y: Math.random() * 100 }
+            Object.entries(availableEffects).forEach(([key, effect]) => {
+                const effectBtn = document.createElement('div');
+                effectBtn.className = `effect-btn ${effect.cost > 200 ? 'expensive' : 'affordable'}`;
+                effectBtn.innerHTML = `
+                    <div style="font-size: 1.5em; margin-bottom: 5px;">${effect.name.split(' ')[0]}</div>
+                    <div style="font-size: 0.9em;">${effect.name}</div>
+                    <div style="font-size: 0.8em; color: #ff6b6b;">${effect.cost} pts</div>
+                `;
+                effectBtn.onclick = () => activateEffect(key);
+                effectsGrid.appendChild(effectBtn);
             });
+        }
+
+        // Adicionar mensagem
+        function addMessage(message) {
+            const container = document.getElementById('messagesContainer');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            
+            const timestamp = new Date(message.timestamp).toLocaleTimeString();
+            messageElement.innerHTML = `
+                <div class="user-name">${message.userName}</div>
+                <div>${message.message}</div>
+                <div class="timestamp">${timestamp}</div>
+            `;
+            
+            container.appendChild(messageElement);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Mostrar notificação
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Mostrar conquista
+        function showAchievement(achievement) {
+            const achievementElement = document.createElement('div');
+            achievementElement.className = 'achievement';
+            achievementElement.innerHTML = `
+                <div style="font-size: 1.5em; margin-bottom: 5px;">${achievement.icon}</div>
+                <div style="font-weight: bold;">${achievement.name}</div>
+                <div>+${achievement.points} pontos!</div>
+            `;
+            
+            document.body.appendChild(achievementElement);
+            
+            setTimeout(() => {
+                achievementElement.remove();
+            }, 5000);
         }
 
         // Criar efeito visual REVOLUCIONÁRIO
         function createVisualEffect(effectType, userName) {
             const effectElement = document.createElement('div');
             effectElement.className = 'visual-effect';
-
+            
             // Posição aleatória na tela
             effectElement.style.left = Math.random() * 80 + 10 + '%';
             effectElement.style.top = Math.random() * 60 + 20 + '%';
-
+            
             // EFEITOS REVOLUCIONÁRIOS - NUNCA VISTOS!
-            switch (effectType) {
+            switch(effectType) {
                 // EFEITOS BÁSICOS
                 case 'rainbow_trail':
                     effectElement.innerHTML = '🌈';
-                    effectElement.style.fontSize = '3em';
-                    effectElement.style.animation = 'rainbowPulse 3s ease-in-out';
+                    effectElement.style.fontSize = '2em';
+                    effectElement.style.animation = 'rainbowTrail 3s ease-in-out';
                     break;
                 case 'fire_aura':
                     effectElement.innerHTML = '🔥';
-                    effectElement.style.fontSize = '4em';
-                    effectElement.style.animation = 'fireBurn 4s ease-in-out';
+                    effectElement.style.fontSize = '2em';
+                    effectElement.style.animation = 'fireAura 3s ease-in-out';
                     break;
                 case 'ice_crystal':
                     effectElement.innerHTML = '❄️';
-                    effectElement.style.fontSize = '3em';
-                    effectElement.style.animation = 'iceShine 3s ease-in-out';
+                    effectElement.style.fontSize = '2em';
+                    effectElement.style.animation = 'iceCrystal 3s ease-in-out';
                     break;
                 case 'electric_spark':
                     effectElement.innerHTML = '⚡';
-                    effectElement.style.fontSize = '3em';
-                    effectElement.style.animation = 'electricFlash 2s ease-in-out';
+                    effectElement.style.fontSize = '2em';
+                    effectElement.style.animation = 'electricSpark 3s ease-in-out';
                     break;
                 case 'cosmic_dust':
                     effectElement.innerHTML = '✨';
                     effectElement.style.fontSize = '2em';
-                    effectElement.style.animation = 'cosmicFloat 5s ease-in-out';
+                    effectElement.style.animation = 'cosmicDust 3s ease-in-out';
                     break;
                 case 'hologram_avatar':
                     effectElement.innerHTML = '👤';
-                    effectElement.style.fontSize = '3em';
-                    effectElement.style.animation = 'hologramFlicker 6s ease-in-out';
+                    effectElement.style.fontSize = '2em';
+                    effectElement.style.animation = 'hologramAvatar 3s ease-in-out';
                     break;
                 case 'sound_wave':
                     effectElement.innerHTML = '🎵';
-                    effectElement.style.fontSize = '3em';
+                    effectElement.style.fontSize = '2em';
                     effectElement.style.animation = 'soundWave 3s ease-in-out';
                     break;
                 case 'time_warp':
                     effectElement.innerHTML = '⏰';
-                    effectElement.style.fontSize = '4em';
-                    effectElement.style.animation = 'timeWarp 8s ease-in-out';
+                    effectElement.style.fontSize = '2em';
+                    effectElement.style.animation = 'timeWarp 3s ease-in-out';
                     break;
-
+                
                 // EFEITOS REVOLUCIONÁRIOS - NUNCA VISTOS!
                 case 'reality_shift':
                     createRealityShiftEffect(effectElement, userName);
-                    return; // Retorna aqui pois cria múltiplos elementos
+                    return; // Returns here as it creates multiple elements
                 case 'mind_control':
                     createMindControlEffect(effectElement, userName);
                     return;
@@ -1888,8 +751,8 @@
                     effectElement.style.fontSize = '2em';
                     effectElement.style.animation = 'defaultPulse 3s ease-in-out';
             }
-
-            // Adicionar nome do usuário
+            
+            // Common code for basic effects (adding name, appending, removing)
             const nameElement = document.createElement('div');
             nameElement.className = 'effect-user-name';
             nameElement.textContent = userName;
@@ -1900,11 +763,10 @@
             nameElement.style.fontSize = '0.8em';
             nameElement.style.color = '#00d4ff';
             nameElement.style.textShadow = '0 0 10px #00d4ff';
-
+            
             effectElement.appendChild(nameElement);
             document.body.appendChild(effectElement);
-
-            // Remover após a animação
+            
             setTimeout(() => {
                 effectElement.remove();
             }, 8000);
@@ -1912,10 +774,10 @@
 
         // EFEITOS REVOLUCIONÁRIOS - FUNÇÕES ESPECÍFICAS
         function createRealityShiftEffect(element, userName) {
-            // Criar múltiplos elementos para simular mudança de realidade
+            // Create multiple elements to simulate reality shift
             const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
             const symbols = ['🌌', '🌍', '🌌', '🌍', '🌌', '🌍'];
-
+            
             for (let i = 0; i < 6; i++) {
                 const realityElement = document.createElement('div');
                 realityElement.className = 'reality-shift-element';
@@ -1928,13 +790,12 @@
                 realityElement.style.zIndex = '999';
                 realityElement.style.animation = 'realityShift 4s ease-in-out';
                 realityElement.style.textShadow = `0 0 20px ${colors[i]}`;
-
+                
                 document.body.appendChild(realityElement);
-
                 setTimeout(() => realityElement.remove(), 4000);
             }
-
-            // Efeito de distorção na tela
+            
+            // Screen distortion effect
             document.body.style.filter = 'hue-rotate(180deg) contrast(1.5)';
             setTimeout(() => {
                 document.body.style.filter = 'none';
@@ -1942,761 +803,237 @@
         }
 
         function createMindControlEffect(element, userName) {
-            // Criar ondas cerebrais visuais
-            const brainWaves = document.createElement('div');
-            brainWaves.className = 'mind-control-waves';
-            brainWaves.innerHTML = '🧠';
-            brainWaves.style.position = 'fixed';
-            brainWaves.style.left = '50%';
-            brainWaves.style.top = '50%';
-            brainWaves.style.transform = 'translate(-50%, -50%)';
-            brainWaves.style.fontSize = '5em';
-            brainWaves.style.zIndex = '999';
-            brainWaves.style.animation = 'mindControl 6s ease-in-out';
-            brainWaves.style.textShadow = '0 0 30px #ff00ff';
-
-            document.body.appendChild(brainWaves);
-
-            // Criar ondas de controle mental
-            for (let i = 0; i < 8; i++) {
-                setTimeout(() => {
-                    const wave = document.createElement('div');
-                    wave.className = 'control-wave';
-                    wave.style.position = 'fixed';
-                    wave.style.left = '50%';
-                    wave.style.top = '50%';
-                    wave.style.width = '0px';
-                    wave.style.height = '0px';
-                    wave.style.border = '2px solid #ff00ff';
-                    wave.style.borderRadius = '50%';
-                    wave.style.transform = 'translate(-50%, -50%)';
-                    wave.style.zIndex = '998';
-                    wave.style.animation = 'controlWave 3s ease-out';
-
-                    document.body.appendChild(wave);
-                    setTimeout(() => wave.remove(), 3000);
-                }, i * 300);
-            }
-
-            setTimeout(() => brainWaves.remove(), 6000);
+            const mindElement = document.createElement('div');
+            mindElement.innerHTML = '��';
+            mindElement.style.position = 'fixed';
+            mindElement.style.left = Math.random() * 80 + 10 + '%';
+            mindElement.style.top = Math.random() * 60 + 20 + '%';
+            mindElement.style.fontSize = '3em';
+            mindElement.style.zIndex = '999';
+            mindElement.style.animation = 'mindControl 4s ease-in-out';
+            mindElement.style.textShadow = '0 0 30px #ff6b6b';
+            
+            document.body.appendChild(mindElement);
+            setTimeout(() => mindElement.remove(), 4000);
         }
 
         function createDimensionPortalEffect(element, userName) {
-            // Criar portal dimensional
-            const portal = document.createElement('div');
-            portal.className = 'dimension-portal';
-            portal.innerHTML = '🌀';
-            portal.style.position = 'fixed';
-            portal.style.left = '50%';
-            portal.style.top = '50%';
-            portal.style.transform = 'translate(-50%, -50%)';
-            portal.style.fontSize = '8em';
-            portal.style.zIndex = '999';
-            portal.style.animation = 'dimensionPortal 8s ease-in-out';
-            portal.style.textShadow = '0 0 50px #00ffff';
-
-            document.body.appendChild(portal);
-
-            // Criar partículas dimensionais
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    const particle = document.createElement('div');
-                    particle.innerHTML = '✨';
-                    particle.style.position = 'fixed';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = Math.random() * 100 + '%';
-                    particle.style.fontSize = '1em';
-                    particle.style.color = '#00ffff';
-                    particle.style.zIndex = '997';
-                    particle.style.animation = 'dimensionalParticle 4s ease-out';
-
-                    document.body.appendChild(particle);
-                    setTimeout(() => particle.remove(), 4000);
-                }, i * 200);
-            }
-
-            setTimeout(() => portal.remove(), 8000);
+            const portalElement = document.createElement('div');
+            portalElement.innerHTML = '🌀';
+            portalElement.style.position = 'fixed';
+            portalElement.style.left = Math.random() * 80 + 10 + '%';
+            portalElement.style.top = Math.random() * 60 + 20 + '%';
+            portalElement.style.fontSize = '3em';
+            portalElement.style.zIndex = '999';
+            portalElement.style.animation = 'dimensionPortal 4s ease-in-out';
+            portalElement.style.textShadow = '0 0 30px #4ecdc4';
+            
+            document.body.appendChild(portalElement);
+            setTimeout(() => portalElement.remove(), 4000);
         }
 
         function createQuantumEntanglementEffect(element, userName) {
-            // Criar partículas quânticas entrelaçadas
-            const particles = [];
-            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
-
-            for (let i = 0; i < 10; i++) {
-                const particle = document.createElement('div');
-                particle.innerHTML = '⚛️';
-                particle.style.position = 'fixed';
-                particle.style.left = Math.random() * 90 + 5 + '%';
-                particle.style.top = Math.random() * 80 + 10 + '%';
-                particle.style.fontSize = '2em';
-                particle.style.color = colors[i % colors.length];
-                particle.style.zIndex = '999';
-                particle.style.animation = 'quantumEntanglement 10s ease-in-out';
-                particle.style.textShadow = `0 0 20px ${colors[i % colors.length]}`;
-
-                document.body.appendChild(particle);
-                particles.push(particle);
-
-                // Criar linha de conexão entre partículas
-                if (i > 0) {
-                    const connection = document.createElement('div');
-                    connection.style.position = 'fixed';
-                    connection.style.left = particles[i - 1].style.left;
-                    connection.style.top = particles[i - 1].style.top;
-                    connection.style.width = '2px';
-                    connection.style.height = '100px';
-                    connection.style.background = 'linear-gradient(45deg, ' + colors[i - 1] + ', ' + colors[i] + ')';
-                    connection.style.zIndex = '998';
-                    connection.style.animation = 'quantumConnection 10s ease-in-out';
-
-                    document.body.appendChild(connection);
-                    setTimeout(() => connection.remove(), 10000);
-                }
-            }
-
-            setTimeout(() => {
-                particles.forEach(p => p.remove());
-            }, 10000);
+            const quantumElement = document.createElement('div');
+            quantumElement.innerHTML = '⚛️';
+            quantumElement.style.position = 'fixed';
+            quantumElement.style.left = Math.random() * 80 + 10 + '%';
+            quantumElement.style.top = Math.random() * 60 + 20 + '%';
+            quantumElement.style.fontSize = '3em';
+            quantumElement.style.zIndex = '999';
+            quantumElement.style.animation = 'quantumEntanglement 4s ease-in-out';
+            quantumElement.style.textShadow = '0 0 30px #ffd700';
+            
+            document.body.appendChild(quantumElement);
+            setTimeout(() => quantumElement.remove(), 4000);
         }
 
         function createNeuralLinkEffect(element, userName) {
-            // Criar rede neural visual
-            const neuralNetwork = document.createElement('div');
-            neuralNetwork.className = 'neural-network';
-            neuralNetwork.innerHTML = '🔗';
-            neuralNetwork.style.position = 'fixed';
-            neuralNetwork.style.left = '50%';
-            neuralNetwork.style.top = '50%';
-            neuralNetwork.style.transform = 'translate(-50%, -50%)';
-            neuralNetwork.style.fontSize = '6em';
-            neuralNetwork.style.zIndex = '999';
-            neuralNetwork.style.animation = 'neuralLink 7s ease-in-out';
-            neuralNetwork.style.textShadow = '0 0 40px #00ff00';
-
-            document.body.appendChild(neuralNetwork);
-
-            // Criar nós da rede neural
-            for (let i = 0; i < 15; i++) {
-                setTimeout(() => {
-                    const node = document.createElement('div');
-                    node.innerHTML = '●';
-                    node.style.position = 'fixed';
-                    node.style.left = Math.random() * 90 + 5 + '%';
-                    node.style.top = Math.random() * 80 + 10 + '%';
-                    node.style.fontSize = '1.5em';
-                    node.style.color = '#00ff00';
-                    node.style.zIndex = '998';
-                    node.style.animation = 'neuralNode 5s ease-in-out';
-
-                    document.body.appendChild(node);
-                    setTimeout(() => node.remove(), 5000);
-                }, i * 200);
-            }
-
-            setTimeout(() => neuralNetwork.remove(), 7000);
+            const neuralElement = document.createElement('div');
+            neuralElement.innerHTML = '🔗';
+            neuralElement.style.position = 'fixed';
+            neuralElement.style.left = Math.random() * 80 + 10 + '%';
+            neuralElement.style.top = Math.random() * 60 + 20 + '%';
+            neuralElement.style.fontSize = '3em';
+            neuralElement.style.zIndex = '999';
+            neuralElement.style.animation = 'neuralLink 4s ease-in-out';
+            neuralElement.style.textShadow = '0 0 30px #ff6b6b';
+            
+            document.body.appendChild(neuralElement);
+            setTimeout(() => neuralElement.remove(), 4000);
         }
 
         function createHolographicTouchEffect(element, userName) {
-            // Criar efeito de toque holográfico
-            const touchPoint = document.createElement('div');
-            touchPoint.innerHTML = '👆';
-            touchPoint.style.position = 'fixed';
-            touchPoint.style.left = Math.random() * 80 + 10 + '%';
-            touchPoint.style.top = Math.random() * 60 + 20 + '%';
-            touchPoint.style.fontSize = '4em';
-            touchPoint.style.zIndex = '999';
-            touchPoint.style.animation = 'holographicTouch 5s ease-in-out';
-            touchPoint.style.textShadow = '0 0 30px #ff8800';
-
-            document.body.appendChild(touchPoint);
-
-            // Criar ondas de toque
-            for (let i = 0; i < 5; i++) {
-                setTimeout(() => {
-                    const wave = document.createElement('div');
-                    wave.style.position = 'fixed';
-                    wave.style.left = touchPoint.style.left;
-                    wave.style.top = touchPoint.style.top;
-                    wave.style.width = '0px';
-                    wave.style.height = '0px';
-                    wave.style.border = '3px solid #ff8800';
-                    wave.style.borderRadius = '50%';
-                    wave.style.transform = 'translate(-50%, -50%)';
-                    wave.style.zIndex = '998';
-                    wave.style.animation = 'touchWave 3s ease-out';
-
-                    document.body.appendChild(wave);
-                    setTimeout(() => wave.remove(), 3000);
-                }, i * 400);
-            }
-
-            setTimeout(() => touchPoint.remove(), 5000);
+            const touchElement = document.createElement('div');
+            touchElement.innerHTML = '👆';
+            touchElement.style.position = 'fixed';
+            touchElement.style.left = Math.random() * 80 + 10 + '%';
+            touchElement.style.top = Math.random() * 60 + 20 + '%';
+            touchElement.style.fontSize = '3em';
+            touchElement.style.zIndex = '999';
+            touchElement.style.animation = 'holographicTouch 4s ease-in-out';
+            touchElement.style.textShadow = '0 0 30px #4ecdc4';
+            
+            document.body.appendChild(touchElement);
+            setTimeout(() => touchElement.remove(), 4000);
         }
 
         function createSoundVisualizationEffect(element, userName) {
-            // Criar visualização sonora
-            const soundViz = document.createElement('div');
-            soundViz.innerHTML = '🎼';
-            soundViz.style.position = 'fixed';
-            soundViz.style.left = '50%';
-            soundViz.style.top = '50%';
-            soundViz.style.transform = 'translate(-50%, -50%)';
-            soundViz.style.fontSize = '5em';
-            soundViz.style.zIndex = '999';
-            soundViz.style.animation = 'soundVisualization 6s ease-in-out';
-            soundViz.style.textShadow = '0 0 35px #ff0080';
-
-            document.body.appendChild(soundViz);
-
-            // Criar barras de som
-            for (let i = 0; i < 12; i++) {
-                setTimeout(() => {
-                    const bar = document.createElement('div');
-                    bar.style.position = 'fixed';
-                    bar.style.left = (40 + i * 2) + '%';
-                    bar.style.bottom = '20%';
-                    bar.style.width = '1%';
-                    bar.style.height = Math.random() * 30 + 10 + '%';
-                    bar.style.background = 'linear-gradient(to top, #ff0080, #ff80ff)';
-                    bar.style.zIndex = '998';
-                    bar.style.animation = 'soundBar 4s ease-in-out';
-
-                    document.body.appendChild(bar);
-                    setTimeout(() => bar.remove(), 4000);
-                }, i * 100);
-            }
-
-            setTimeout(() => soundViz.remove(), 6000);
+            const soundElement = document.createElement('div');
+            soundElement.innerHTML = '🎼';
+            soundElement.style.position = 'fixed';
+            soundElement.style.left = Math.random() * 80 + 10 + '%';
+            soundElement.style.top = Math.random() * 60 + 20 + '%';
+            soundElement.style.fontSize = '3em';
+            soundElement.style.zIndex = '999';
+            soundElement.style.animation = 'soundVisualization 4s ease-in-out';
+            soundElement.style.textShadow = '0 0 30px #ff6b6b';
+            
+            document.body.appendChild(soundElement);
+            setTimeout(() => soundElement.remove(), 4000);
         }
 
         function createEmotionWaveEffect(element, userName) {
-            // Criar onda emocional
-            const emotionWave = document.createElement('div');
-            emotionWave.innerHTML = '💫';
-            emotionWave.style.position = 'fixed';
-            emotionWave.style.left = '50%';
-            emotionWave.style.top = '50%';
-            emotionWave.style.transform = 'translate(-50%, -50%)';
-            emotionWave.style.fontSize = '6em';
-            emotionWave.style.zIndex = '999';
-            emotionWave.style.animation = 'emotionWave 8s ease-in-out';
-            emotionWave.style.textShadow = '0 0 45px #ffaa00';
-
-            document.body.appendChild(emotionWave);
-
-            // Criar partículas emocionais
-            const emotions = ['😊', '😍', '🤩', '🥰', '😎', '🤗', '😌', '😇'];
-            for (let i = 0; i < 16; i++) {
-                setTimeout(() => {
-                    const emotion = document.createElement('div');
-                    emotion.innerHTML = emotions[i % emotions.length];
-                    emotion.style.position = 'fixed';
-                    emotion.style.left = Math.random() * 90 + 5 + '%';
-                    emotion.style.top = Math.random() * 80 + 10 + '%';
-                    emotion.style.fontSize = '2em';
-                    emotion.style.color = '#ffaa00';
-                    emotion.style.zIndex = '998';
-                    emotion.style.animation = 'emotionParticle 6s ease-in-out';
-
-                    document.body.appendChild(emotion);
-                    setTimeout(() => emotion.remove(), 6000);
-                }, i * 200);
-            }
-
-            setTimeout(() => emotionWave.remove(), 8000);
+            const emotionElement = document.createElement('div');
+            emotionElement.innerHTML = '💫';
+            emotionElement.style.position = 'fixed';
+            emotionElement.style.left = Math.random() * 80 + 10 + '%';
+            emotionElement.style.top = Math.random() * 60 + 20 + '%';
+            emotionElement.style.fontSize = '3em';
+            emotionElement.style.zIndex = '999';
+            emotionElement.style.animation = 'emotionWave 4s ease-in-out';
+            emotionElement.style.textShadow = '0 0 30px #ffd700';
+            
+            document.body.appendChild(emotionElement);
+            setTimeout(() => emotionElement.remove(), 4000);
         }
 
         function createTimeReversalEffect(element, userName) {
-            // Criar efeito de reversão temporal
-            const timeReversal = document.createElement('div');
-            timeReversal.innerHTML = '⏪';
-            timeReversal.style.position = 'fixed';
-            timeReversal.style.left = '50%';
-            timeReversal.style.top = '50%';
-            timeReversal.style.transform = 'translate(-50%, -50%)';
-            timeReversal.style.fontSize = '7em';
-            timeReversal.style.zIndex = '999';
-            timeReversal.style.animation = 'timeReversal 10s ease-in-out';
-            timeReversal.style.textShadow = '0 0 60px #ff0000';
-
-            document.body.appendChild(timeReversal);
-
-            // Efeito de distorção temporal na tela
-            document.body.style.filter = 'invert(1) hue-rotate(180deg)';
-            setTimeout(() => {
-                document.body.style.filter = 'none';
-            }, 3000);
-
-            // Criar espirais temporais
-            for (let i = 0; i < 8; i++) {
-                setTimeout(() => {
-                    const spiral = document.createElement('div');
-                    spiral.innerHTML = '🌀';
-                    spiral.style.position = 'fixed';
-                    spiral.style.left = Math.random() * 90 + 5 + '%';
-                    spiral.style.top = Math.random() * 80 + 10 + '%';
-                    spiral.style.fontSize = '3em';
-                    spiral.style.color = '#ff0000';
-                    spiral.style.zIndex = '998';
-                    spiral.style.animation = 'timeSpiral 8s ease-in-out';
-
-                    document.body.appendChild(spiral);
-                    setTimeout(() => spiral.remove(), 8000);
-                }, i * 500);
-            }
-
-            setTimeout(() => timeReversal.remove(), 10000);
+            const timeElement = document.createElement('div');
+            timeElement.innerHTML = '⏪';
+            timeElement.style.position = 'fixed';
+            timeElement.style.left = Math.random() * 80 + 10 + '%';
+            timeElement.style.top = Math.random() * 60 + 20 + '%';
+            timeElement.style.fontSize = '3em';
+            timeElement.style.zIndex = '999';
+            timeElement.style.animation = 'timeReversal 4s ease-in-out';
+            timeElement.style.textShadow = '0 0 30px #ff6b6b';
+            
+            document.body.appendChild(timeElement);
+            setTimeout(() => timeElement.remove(), 4000);
         }
 
         function createRealityMergeEffect(element, userName) {
-            // Criar efeito de fusão de realidades
-            const realityMerge = document.createElement('div');
-            realityMerge.innerHTML = '🔄';
-            realityMerge.style.position = 'fixed';
-            realityMerge.style.left = '50%';
-            realityMerge.style.top = '50%';
-            realityMerge.style.transform = 'translate(-50%, -50%)';
-            realityMerge.style.fontSize = '8em';
-            realityMerge.style.zIndex = '999';
-            realityMerge.style.animation = 'realityMerge 12s ease-in-out';
-            realityMerge.style.textShadow = '0 0 70px #ff00ff';
-
-            document.body.appendChild(realityMerge);
-
-            // Criar múltiplas camadas de realidade
-            const realities = ['🌍', '🌌', '🌍', '🌌', '🌍', '🌌'];
-            for (let i = 0; i < 6; i++) {
-                setTimeout(() => {
-                    const reality = document.createElement('div');
-                    reality.innerHTML = realities[i];
-                    reality.style.position = 'fixed';
-                    reality.style.left = Math.random() * 90 + 5 + '%';
-                    reality.style.top = Math.random() * 80 + 10 + '%';
-                    reality.style.fontSize = '4em';
-                    reality.style.zIndex = '998';
-                    reality.style.animation = 'realityLayer 10s ease-in-out';
-
-                    document.body.appendChild(reality);
-                    setTimeout(() => reality.remove(), 10000);
-                }, i * 800);
-            }
-
-            setTimeout(() => realityMerge.remove(), 12000);
+            const mergeElement = document.createElement('div');
+            mergeElement.innerHTML = '🔄';
+            mergeElement.style.position = 'fixed';
+            mergeElement.style.left = Math.random() * 80 + 10 + '%';
+            mergeElement.style.top = Math.random() * 60 + 20 + '%';
+            mergeElement.style.fontSize = '3em';
+            mergeElement.style.zIndex = '999';
+            mergeElement.style.animation = 'realityMerge 4s ease-in-out';
+            mergeElement.style.textShadow = '0 0 30px #4ecdc4';
+            
+            document.body.appendChild(mergeElement);
+            setTimeout(() => mergeElement.remove(), 4000);
         }
 
         function createConsciousnessExpansionEffect(element, userName) {
-            // Criar efeito de expansão da consciência
-            const consciousness = document.createElement('div');
-            consciousness.innerHTML = '🧘';
-            consciousness.style.position = 'fixed';
-            consciousness.style.left = '50%';
-            consciousness.style.top = '50%';
-            consciousness.style.transform = 'translate(-50%, -50%)';
-            consciousness.style.fontSize = '6em';
-            consciousness.style.zIndex = '999';
-            consciousness.style.animation = 'consciousnessExpansion 9s ease-in-out';
-            consciousness.style.textShadow = '0 0 50px #00ffff';
-
-            document.body.appendChild(consciousness);
-
-            // Criar auras de consciência
-            for (let i = 0; i < 10; i++) {
-                setTimeout(() => {
-                    const aura = document.createElement('div');
-                    aura.style.position = 'fixed';
-                    aura.style.left = '50%';
-                    aura.style.top = '50%';
-                    aura.style.width = (i * 20) + 'px';
-                    aura.style.height = (i * 20) + 'px';
-                    aura.style.border = '2px solid #00ffff';
-                    aura.style.borderRadius = '50%';
-                    aura.style.transform = 'translate(-50%, -50%)';
-                    aura.style.zIndex = '998';
-                    aura.style.animation = 'consciousnessAura 7s ease-in-out';
-
-                    document.body.appendChild(aura);
-                    setTimeout(() => aura.remove(), 7000);
-                }, i * 300);
-            }
-
-            setTimeout(() => consciousness.remove(), 9000);
+            const consciousnessElement = document.createElement('div');
+            consciousnessElement.innerHTML = '🧘';
+            consciousnessElement.style.position = 'fixed';
+            consciousnessElement.style.left = Math.random() * 80 + 10 + '%';
+            consciousnessElement.style.top = Math.random() * 60 + 20 + '%';
+            consciousnessElement.style.fontSize = '3em';
+            consciousnessElement.style.zIndex = '999';
+            consciousnessElement.style.animation = 'consciousnessExpansion 4s ease-in-out';
+            consciousnessElement.style.textShadow = '0 0 30px #ffd700';
+            
+            document.body.appendChild(consciousnessElement);
+            setTimeout(() => consciousnessElement.remove(), 4000);
         }
 
         function createQuantumTeleportEffect(element, userName) {
-            // Criar efeito de teletransporte quântico
-            const teleport = document.createElement('div');
-            teleport.innerHTML = '🚀';
-            teleport.style.position = 'fixed';
-            teleport.style.left = '50%';
-            teleport.style.top = '50%';
-            teleport.style.transform = 'translate(-50%, -50%)';
-            teleport.style.fontSize = '7em';
-            teleport.style.zIndex = '999';
-            teleport.style.animation = 'quantumTeleport 15s ease-in-out';
-            teleport.style.textShadow = '0 0 80px #ff8800';
-
-            document.body.appendChild(teleport);
-
-            // Criar partículas de teletransporte
-            for (let i = 0; i < 25; i++) {
-                setTimeout(() => {
-                    const particle = document.createElement('div');
-                    particle.innerHTML = '✨';
-                    particle.style.position = 'fixed';
-                    particle.style.left = Math.random() * 100 + '%';
-                    particle.style.top = Math.random() * 100 + '%';
-                    particle.style.fontSize = '1.5em';
-                    particle.style.color = '#ff8800';
-                    particle.style.zIndex = '998';
-                    particle.style.animation = 'teleportParticle 12s ease-in-out';
-
-                    document.body.appendChild(particle);
-                    setTimeout(() => particle.remove(), 12000);
-                }, i * 200);
-            }
-
-            setTimeout(() => teleport.remove(), 15000);
+            const teleportElement = document.createElement('div');
+            teleportElement.innerHTML = '��';
+            teleportElement.style.position = 'fixed';
+            teleportElement.style.left = Math.random() * 80 + 10 + '%';
+            teleportElement.style.top = Math.random() * 60 + 20 + '%';
+            teleportElement.style.fontSize = '3em';
+            teleportElement.style.zIndex = '999';
+            teleportElement.style.animation = 'quantumTeleport 4s ease-in-out';
+            teleportElement.style.textShadow = '0 0 30px #ff6b6b';
+            
+            document.body.appendChild(teleportElement);
+            setTimeout(() => teleportElement.remove(), 4000);
         }
 
         function createNeuralSyncEffect(element, userName) {
-            // Criar efeito de sincronização neural
-            const neuralSync = document.createElement('div');
-            neuralSync.innerHTML = '🧬';
-            neuralSync.style.position = 'fixed';
-            neuralSync.style.left = '50%';
-            neuralSync.style.top = '50%';
-            neuralSync.style.transform = 'translate(-50%, -50%)';
-            neuralSync.style.fontSize = '5em';
-            neuralSync.style.zIndex = '999';
-            neuralSync.style.animation = 'neuralSync 8s ease-in-out';
-            neuralSync.style.textShadow = '0 0 40px #00ff00';
-
-            document.body.appendChild(neuralSync);
-
-            // Criar DNA visual
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    const dna = document.createElement('div');
-                    dna.innerHTML = '●';
-                    dna.style.position = 'fixed';
-                    dna.style.left = (45 + Math.sin(i * 0.5) * 10) + '%';
-                    dna.style.top = (20 + i * 3) + '%';
-                    dna.style.fontSize = '1.5em';
-                    dna.style.color = '#00ff00';
-                    dna.style.zIndex = '998';
-                    dna.style.animation = 'dnaStrand 6s ease-in-out';
-
-                    document.body.appendChild(dna);
-                    setTimeout(() => dna.remove(), 6000);
-                }, i * 150);
-            }
-
-            setTimeout(() => neuralSync.remove(), 8000);
+            const syncElement = document.createElement('div');
+            syncElement.innerHTML = '��';
+            syncElement.style.position = 'fixed';
+            syncElement.style.left = Math.random() * 80 + 10 + '%';
+            syncElement.style.top = Math.random() * 60 + 20 + '%';
+            syncElement.style.fontSize = '3em';
+            syncElement.style.zIndex = '999';
+            syncElement.style.animation = 'neuralSync 4s ease-in-out';
+            syncElement.style.textShadow = '0 0 30px #4ecdc4';
+            
+            document.body.appendChild(syncElement);
+            setTimeout(() => syncElement.remove(), 4000);
         }
 
         function createDreamWalkerEffect(element, userName) {
-            // Criar efeito de caminhante dos sonhos
-            const dreamWalker = document.createElement('div');
-            dreamWalker.innerHTML = '💭';
-            dreamWalker.style.position = 'fixed';
-            dreamWalker.style.left = '50%';
-            dreamWalker.style.top = '50%';
-            dreamWalker.style.transform = 'translate(-50%, -50%)';
-            dreamWalker.style.fontSize = '6em';
-            dreamWalker.style.zIndex = '999';
-            dreamWalker.style.animation = 'dreamWalker 10s ease-in-out';
-            dreamWalker.style.textShadow = '0 0 55px #ff80ff';
-
-            document.body.appendChild(dreamWalker);
-
-            // Criar bolhas de sonho
-            for (let i = 0; i < 15; i++) {
-                setTimeout(() => {
-                    const bubble = document.createElement('div');
-                    bubble.innerHTML = '💭';
-                    bubble.style.position = 'fixed';
-                    bubble.style.left = Math.random() * 90 + 5 + '%';
-                    bubble.style.top = Math.random() * 80 + 10 + '%';
-                    bubble.style.fontSize = '2em';
-                    bubble.style.color = '#ff80ff';
-                    bubble.style.zIndex = '998';
-                    bubble.style.animation = 'dreamBubble 8s ease-in-out';
-
-                    document.body.appendChild(bubble);
-                    setTimeout(() => bubble.remove(), 8000);
-                }, i * 300);
-            }
-
-            setTimeout(() => dreamWalker.remove(), 10000);
+            const dreamElement = document.createElement('div');
+            dreamElement.innerHTML = '💭';
+            dreamElement.style.position = 'fixed';
+            dreamElement.style.left = Math.random() * 80 + 10 + '%';
+            dreamElement.style.top = Math.random() * 60 + 20 + '%';
+            dreamElement.style.fontSize = '3em';
+            dreamElement.style.zIndex = '999';
+            dreamElement.style.animation = 'dreamWalker 4s ease-in-out';
+            dreamElement.style.textShadow = '0 0 30px #ffd700';
+            
+            document.body.appendChild(dreamElement);
+            setTimeout(() => dreamElement.remove(), 4000);
         }
 
         function createRealityGlitchEffect(element, userName) {
-            // Criar efeito de glitch da realidade
-            const glitch = document.createElement('div');
-            glitch.innerHTML = '📱';
-            glitch.style.position = 'fixed';
-            glitch.style.left = '50%';
-            glitch.style.top = '50%';
-            glitch.style.transform = 'translate(-50%, -50%)';
-            glitch.style.fontSize = '5em';
-            glitch.style.zIndex = '999';
-            glitch.style.animation = 'realityGlitch 6s ease-in-out';
-            glitch.style.textShadow = '0 0 35px #ff0000';
-
-            document.body.appendChild(glitch);
-
-            // Efeito de glitch na tela
-            let glitchCount = 0;
-            const glitchInterval = setInterval(() => {
-                document.body.style.filter = glitchCount % 2 === 0 ?
-                    'hue-rotate(90deg) contrast(2)' :
-                    'invert(1) saturate(2)';
-                glitchCount++;
-                if (glitchCount > 10) {
-                    clearInterval(glitchInterval);
-                    document.body.style.filter = 'none';
-                }
-            }, 200);
-
-            setTimeout(() => glitch.remove(), 6000);
+            const glitchElement = document.createElement('div');
+            glitchElement.innerHTML = '📱';
+            glitchElement.style.position = 'fixed';
+            glitchElement.style.left = Math.random() * 80 + 10 + '%';
+            glitchElement.style.top = Math.random() * 60 + 20 + '%';
+            glitchElement.style.fontSize = '3em';
+            glitchElement.style.zIndex = '999';
+            glitchElement.style.animation = 'realityGlitch 4s ease-in-out';
+            glitchElement.style.textShadow = '0 0 30px #ff6b6b';
+            
+            document.body.appendChild(glitchElement);
+            setTimeout(() => glitchElement.remove(), 4000);
         }
 
         function createCosmicConsciousnessEffect(element, userName) {
-            // Criar efeito de consciência cósmica
-            const cosmic = document.createElement('div');
-            cosmic.innerHTML = '🌠';
-            cosmic.style.position = 'fixed';
-            cosmic.style.left = '50%';
-            cosmic.style.top = '50%';
-            cosmic.style.transform = 'translate(-50%, -50%)';
-            cosmic.style.fontSize = '8em';
-            cosmic.style.zIndex = '999';
-            cosmic.style.animation = 'cosmicConsciousness 20s ease-in-out';
-            cosmic.style.textShadow = '0 0 100px #ffffff';
-
-            document.body.appendChild(cosmic);
-
-            // Criar galáxias e estrelas
-            const cosmicElements = ['🌌', '⭐', '🌌', '⭐', '🌌', '⭐', '🌌', '⭐'];
-            for (let i = 0; i < 20; i++) {
-                setTimeout(() => {
-                    const element = document.createElement('div');
-                    element.innerHTML = cosmicElements[i % cosmicElements.length];
-                    element.style.position = 'fixed';
-                    element.style.left = Math.random() * 100 + '%';
-                    element.style.top = Math.random() * 100 + '%';
-                    element.style.fontSize = '3em';
-                    element.style.color = '#ffffff';
-                    element.style.zIndex = '998';
-                    element.style.animation = 'cosmicElement 15s ease-in-out';
-
-                    document.body.appendChild(element);
-                    setTimeout(() => element.remove(), 15000);
-                }, i * 400);
-            }
-
-            setTimeout(() => cosmic.remove(), 20000);
+            const cosmicElement = document.createElement('div');
+            cosmicElement.innerHTML = '🌠';
+            cosmicElement.style.position = 'fixed';
+            cosmicElement.style.left = Math.random() * 80 + 10 + '%';
+            cosmicElement.style.top = Math.random() * 60 + 20 + '%';
+            cosmicElement.style.fontSize = '3em';
+            cosmicElement.style.zIndex = '999';
+            cosmicElement.style.animation = 'cosmicConsciousness 4s ease-in-out';
+            cosmicElement.style.textShadow = '0 0 30px #4ecdc4';
+            
+            document.body.appendChild(cosmicElement);
+            setTimeout(() => cosmicElement.remove(), 4000);
         }
 
-        // Adicionar mensagem à interface
-        function addMessage(message) {
-            const container = document.getElementById('messages-container');
-
-            // Remover mensagem de boas-vindas se existir
-            if (container.children.length === 1 && container.firstChild.style.textAlign === 'center') {
-                container.innerHTML = '';
-            }
-
-            const messageElement = document.createElement('div');
-            messageElement.className = 'message';
-
-            const time = new Date(message.timestamp).toLocaleTimeString();
-
-            messageElement.innerHTML = `
-                <div class="message-header">
-                    <span class="message-user">${message.userName}</span>
-                    <span class="message-time">${time}</span>
-                </div>
-                <div class="message-text">${message.text}</div>
-                ${message.effects && message.effects.length > 0 ?
-                    `<div class="message-effects">
-                        ${message.effects.map(effect => `<span class="effect-tag">${effect}</span>`).join('')}
-                    </div>` : ''
-                }
-            `;
-
-            container.appendChild(messageElement);
-            container.scrollTop = container.scrollHeight;
-
-            // Efeito especial para mensagens com efeitos
-            if (message.effects && message.effects.length > 0) {
-                createHologramEffect(messageElement);
-            }
-
-            messages.push(message);
-        }
-
-        // Criar efeito holográfico
-        function createHologramEffect(element) {
-            const hologram = document.createElement('div');
-            hologram.className = 'hologram';
-            hologram.innerHTML = '✨';
-            hologram.style.fontSize = '1.5em';
-            hologram.style.color = '#00d4ff';
-
-            const rect = element.getBoundingClientRect();
-            hologram.style.left = (rect.left + rect.width / 2) + 'px';
-            hologram.style.top = (rect.top - 15) + 'px';
-
-            document.body.appendChild(hologram);
-
-            setTimeout(() => {
-                hologram.remove();
-            }, 3000);
-        }
-
-        // Atualizar leaderboard
-        function updateLeaderboard(leaderboardData) {
-            const container = document.getElementById('leaderboard-list');
-
-            if (leaderboardData.length === 0) {
-                container.innerHTML = '<div style="text-align: center; color: #888; padding: 20px;">Aguardando participantes...</div>';
-                return;
-            }
-
-            container.innerHTML = leaderboardData.map((participant, index) => `
-                <div class="leaderboard-item">
-                    <span class="leaderboard-rank">#${index + 1}</span>
-                    <span class="leaderboard-name">${participant.name}</span>
-                    <span class="leaderboard-points">${participant.points} pts</span>
-                </div>
-            `).join('');
-        }
-
-        // Atualizar estatísticas do usuário
-        function updateUserStats(points, level, achievements) {
-            userPoints = points;
-            userLevel = level;
-            userAchievements = achievements;
-
-            document.getElementById('user-points').textContent = points;
-            document.getElementById('user-level').textContent = level;
-
-            // Atualizar achievements
-            const achievementsContainer = document.getElementById('achievements-list');
-            if (achievements.length === 0) {
-                achievementsContainer.innerHTML = '<div style="text-align: center; color: #888; padding: 20px;">Complete ações para desbloquear achievements!</div>';
-            } else {
-                achievementsContainer.innerHTML = achievements.map(achievement => `
-                    <div class="achievement">
-                        <div class="achievement-icon">${achievement.icon}</div>
-                        <div class="achievement-info">
-                            <div class="achievement-name">${achievement.name}</div>
-                            <div class="achievement-points">+${achievement.points} pontos</div>
-                        </div>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // Carregar efeitos disponíveis
-        function loadEffects(effects) {
-            availableEffects = effects;
-            const grid = document.getElementById('effects-grid');
-
-            grid.innerHTML = Object.entries(effects).map(([key, effect]) => `
-                <button class="effect-btn" onclick="activateEffect('${key}')" data-cost="${effect.cost}">
-                    ${effect.name}<br>
-                    <small>${effect.cost} pts</small>
-                </button>
-            `).join('');
-        }
-
-        // Mostrar notificação
-        function showNotification(message, duration = 3000) {
-            const notification = document.createElement('div');
-            notification.className = 'notification';
-            notification.textContent = message;
-            document.body.appendChild(notification);
-
-            setTimeout(() => {
-                notification.remove();
-            }, duration);
-        }
-
-        // Adicionar mensagem da IA
-        function addAIMessage(text) {
-            const container = document.getElementById('ai-messages');
-            const messageElement = document.createElement('div');
-            messageElement.className = 'ai-message';
-            messageElement.textContent = text;
-            container.appendChild(messageElement);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        // Socket.IO Events
-        socket.on('welcome', function (data) {
-            loadEffects(data.availableEffects);
-            showNotification('🌟 Bem-vindo à experiência 4D!');
-        });
-
-        socket.on('new_message', function (message) {
-            addMessage(message);
-        });
-
-        socket.on('achievement_unlocked', function (achievement) {
-            showNotification(`🏆 Achievement desbloqueado: ${achievement.name}! +${achievement.points} pontos`);
-            userAchievements.push(achievement);
-            updateUserStats(userPoints, userLevel, userAchievements);
-        });
-
-        socket.on('effect_activated', function (data) {
-            showNotification(`✨ ${data.userName} ativou: ${data.effect}`);
-
-            // Criar efeito visual baseado no tipo
-            createVisualEffect(data.effect, data.userName);
-        });
-
-        socket.on('holographic_effect', function (data) {
-            showNotification(`🌟 ${data.userName} criou um holograma!`);
-        });
-
-        socket.on('ai_response', function (data) {
-            addAIMessage(data.text);
-        });
-
-        socket.on('participants_update', function (participantsData) {
-            participants = participantsData;
-            document.getElementById('online-count').textContent = participants.length;
-
-            // Encontrar dados do usuário atual
-            const currentUser = participants.find(p => p.name === username);
-            if (currentUser) {
-                updateUserStats(currentUser.points, currentUser.level, currentUser.achievements);
+        // Enviar mensagem com Enter
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
             }
         });
-
-        socket.on('insufficient_points', function (data) {
-            showNotification(`❌ Pontos insuficientes! Você tem ${data.current} pontos, precisa de ${data.required}.`);
-        });
-
-        // Efeitos de entrada
-        setTimeout(() => {
-            showNotification('🚀 Sistema 4D Revolucionário Conectado!');
-        }, 2500);
-
-        setTimeout(() => {
-            showNotification('🌟 Defina seu nome para começar a experiência!');
-        }, 4000);
-
-        // Criar hologramas aleatórios
-        setInterval(() => {
-            if (Math.random() < 0.1) { // 10% de chance a cada 5 segundos
-                createHologram();
-            }
-        }, 5000);
     </script>
 </body>
-
 </html>
