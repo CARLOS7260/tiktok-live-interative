@@ -100,12 +100,12 @@ const aiPersonalities = {
 
 // Rotas principais
 app.get('/', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    message: 'Sistema 4D Revolucionário Ativo!',
-    version: '1.0.0',
-    timestamp: new Date().toISOString()
-  });
+    res.json({
+        status: 'OK',
+        message: 'Sistema 4D Revolucionário Ativo!',
+        version: '1.0.0',
+        timestamp: new Date().toISOString()
+    });
 });
 
 app.get('/dashboard', (req, res) => {
@@ -150,7 +150,7 @@ io.on('connection', (socket) => {
     liveData.participants.set(socket.id, {
         id: socket.id,
         name: 'Anônimo',
-        points: 0,
+        points: 500, // Pontos iniciais para testar efeitos
         level: 1,
         achievements: [],
         effects: [],
