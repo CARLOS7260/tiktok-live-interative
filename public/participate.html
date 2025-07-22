@@ -768,6 +768,760 @@
             }
         }
 
+        /* Efeitos visuais */
+        .visual-effect {
+            position: fixed;
+            z-index: 999;
+            pointer-events: none;
+            text-shadow: 0 0 20px currentColor;
+        }
+
+        @keyframes rainbowPulse {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 0.8;
+            }
+        }
+
+        @keyframes fireBurn {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            25% {
+                transform: scale(1.2) rotate(-5deg);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: scale(1.4) rotate(5deg);
+                opacity: 0.8;
+            }
+
+            75% {
+                transform: scale(1.2) rotate(-3deg);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes iceShine {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+                filter: brightness(1);
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.9;
+                filter: brightness(1.5);
+            }
+        }
+
+        @keyframes electricFlash {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            25% {
+                transform: scale(1.5);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.9;
+            }
+
+            75% {
+                transform: scale(1.8);
+                opacity: 0.6;
+            }
+        }
+
+        @keyframes cosmicFloat {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(0) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes hologramFlicker {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+                filter: hue-rotate(0deg);
+            }
+
+            25% {
+                transform: scale(1.1);
+                opacity: 0.8;
+                filter: hue-rotate(90deg);
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.9;
+                filter: hue-rotate(180deg);
+            }
+
+            75% {
+                transform: scale(1.1);
+                opacity: 0.8;
+                filter: hue-rotate(270deg);
+            }
+        }
+
+        @keyframes soundWave {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            33% {
+                transform: scale(1.3);
+                opacity: 0.8;
+            }
+
+            66% {
+                transform: scale(1.1);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1.5);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes timeWarp {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            25% {
+                transform: scale(1.2) rotate(90deg);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: scale(1.4) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            75% {
+                transform: scale(1.2) rotate(270deg);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes defaultPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        /* ANIMAÇÕES DOS EFEITOS REVOLUCIONÁRIOS */
+        @keyframes realityShift {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(2) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes mindControl {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            25% {
+                transform: scale(1.5) rotate(90deg);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: scale(2) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            75% {
+                transform: scale(1.5) rotate(270deg);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes controlWave {
+            0% {
+                width: 0px;
+                height: 0px;
+                opacity: 1;
+            }
+
+            100% {
+                width: 300px;
+                height: 300px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes dimensionPortal {
+            0% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes dimensionalParticle {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0) translateY(-100px);
+                opacity: 0;
+            }
+        }
+
+        @keyframes quantumEntanglement {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            25% {
+                transform: scale(1.3) rotate(90deg);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: scale(1.6) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            75% {
+                transform: scale(1.3) rotate(270deg);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes quantumConnection {
+            0% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scaleY(1.5);
+            }
+
+            100% {
+                opacity: 0;
+                transform: scaleY(0);
+            }
+        }
+
+        @keyframes neuralLink {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes neuralNode {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes holographicTouch {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.4);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes touchWave {
+            0% {
+                width: 0px;
+                height: 0px;
+                opacity: 1;
+            }
+
+            100% {
+                width: 200px;
+                height: 200px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes soundVisualization {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes soundBar {
+            0% {
+                height: 0%;
+                opacity: 1;
+            }
+
+            50% {
+                height: 100%;
+                opacity: 0.8;
+            }
+
+            100% {
+                height: 0%;
+                opacity: 0;
+            }
+        }
+
+        @keyframes emotionWave {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes emotionParticle {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes timeReversal {
+            0% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            25% {
+                transform: translate(-50%, -50%) scale(1.2) rotate(90deg);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.4) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            75% {
+                transform: translate(-50%, -50%) scale(1.2) rotate(270deg);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes timeSpiral {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes realityMerge {
+            0% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.4) rotate(180deg);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        @keyframes realityLayer {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes consciousnessExpansion {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes consciousnessAura {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes quantumTeleport {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            25% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.6);
+                opacity: 0.8;
+            }
+
+            75% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes teleportParticle {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.5);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes neuralSync {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes dnaStrand {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes dreamWalker {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.3);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes dreamBubble {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.4);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes realityGlitch {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            25% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.4);
+                opacity: 0.8;
+            }
+
+            75% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes cosmicConsciousness {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+
+            25% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.9;
+            }
+
+            50% {
+                transform: translate(-50%, -50%) scale(1.4);
+                opacity: 0.8;
+            }
+
+            75% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.9;
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes cosmicElement {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.3);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
         .loading-text {
             color: #00d4ff;
             font-size: 1.2em;
@@ -1027,6 +1781,724 @@
             });
         }
 
+        // Criar efeito visual REVOLUCIONÁRIO
+        function createVisualEffect(effectType, userName) {
+            const effectElement = document.createElement('div');
+            effectElement.className = 'visual-effect';
+
+            // Posição aleatória na tela
+            effectElement.style.left = Math.random() * 80 + 10 + '%';
+            effectElement.style.top = Math.random() * 60 + 20 + '%';
+
+            // EFEITOS REVOLUCIONÁRIOS - NUNCA VISTOS!
+            switch (effectType) {
+                // EFEITOS BÁSICOS
+                case 'rainbow_trail':
+                    effectElement.innerHTML = '🌈';
+                    effectElement.style.fontSize = '3em';
+                    effectElement.style.animation = 'rainbowPulse 3s ease-in-out';
+                    break;
+                case 'fire_aura':
+                    effectElement.innerHTML = '🔥';
+                    effectElement.style.fontSize = '4em';
+                    effectElement.style.animation = 'fireBurn 4s ease-in-out';
+                    break;
+                case 'ice_crystal':
+                    effectElement.innerHTML = '❄️';
+                    effectElement.style.fontSize = '3em';
+                    effectElement.style.animation = 'iceShine 3s ease-in-out';
+                    break;
+                case 'electric_spark':
+                    effectElement.innerHTML = '⚡';
+                    effectElement.style.fontSize = '3em';
+                    effectElement.style.animation = 'electricFlash 2s ease-in-out';
+                    break;
+                case 'cosmic_dust':
+                    effectElement.innerHTML = '✨';
+                    effectElement.style.fontSize = '2em';
+                    effectElement.style.animation = 'cosmicFloat 5s ease-in-out';
+                    break;
+                case 'hologram_avatar':
+                    effectElement.innerHTML = '👤';
+                    effectElement.style.fontSize = '3em';
+                    effectElement.style.animation = 'hologramFlicker 6s ease-in-out';
+                    break;
+                case 'sound_wave':
+                    effectElement.innerHTML = '🎵';
+                    effectElement.style.fontSize = '3em';
+                    effectElement.style.animation = 'soundWave 3s ease-in-out';
+                    break;
+                case 'time_warp':
+                    effectElement.innerHTML = '⏰';
+                    effectElement.style.fontSize = '4em';
+                    effectElement.style.animation = 'timeWarp 8s ease-in-out';
+                    break;
+
+                // EFEITOS REVOLUCIONÁRIOS - NUNCA VISTOS!
+                case 'reality_shift':
+                    createRealityShiftEffect(effectElement, userName);
+                    return; // Retorna aqui pois cria múltiplos elementos
+                case 'mind_control':
+                    createMindControlEffect(effectElement, userName);
+                    return;
+                case 'dimension_portal':
+                    createDimensionPortalEffect(effectElement, userName);
+                    return;
+                case 'quantum_entanglement':
+                    createQuantumEntanglementEffect(effectElement, userName);
+                    return;
+                case 'neural_link':
+                    createNeuralLinkEffect(effectElement, userName);
+                    return;
+                case 'holographic_touch':
+                    createHolographicTouchEffect(effectElement, userName);
+                    return;
+                case 'sound_visualization':
+                    createSoundVisualizationEffect(effectElement, userName);
+                    return;
+                case 'emotion_wave':
+                    createEmotionWaveEffect(effectElement, userName);
+                    return;
+                case 'time_reversal':
+                    createTimeReversalEffect(effectElement, userName);
+                    return;
+                case 'reality_merge':
+                    createRealityMergeEffect(effectElement, userName);
+                    return;
+                case 'consciousness_expansion':
+                    createConsciousnessExpansionEffect(effectElement, userName);
+                    return;
+                case 'quantum_teleport':
+                    createQuantumTeleportEffect(effectElement, userName);
+                    return;
+                case 'neural_sync':
+                    createNeuralSyncEffect(effectElement, userName);
+                    return;
+                case 'dream_walker':
+                    createDreamWalkerEffect(effectElement, userName);
+                    return;
+                case 'reality_glitch':
+                    createRealityGlitchEffect(effectElement, userName);
+                    return;
+                case 'cosmic_consciousness':
+                    createCosmicConsciousnessEffect(effectElement, userName);
+                    return;
+                default:
+                    effectElement.innerHTML = '✨';
+                    effectElement.style.fontSize = '2em';
+                    effectElement.style.animation = 'defaultPulse 3s ease-in-out';
+            }
+
+            // Adicionar nome do usuário
+            const nameElement = document.createElement('div');
+            nameElement.className = 'effect-user-name';
+            nameElement.textContent = userName;
+            nameElement.style.position = 'absolute';
+            nameElement.style.bottom = '-20px';
+            nameElement.style.left = '50%';
+            nameElement.style.transform = 'translateX(-50%)';
+            nameElement.style.fontSize = '0.8em';
+            nameElement.style.color = '#00d4ff';
+            nameElement.style.textShadow = '0 0 10px #00d4ff';
+
+            effectElement.appendChild(nameElement);
+            document.body.appendChild(effectElement);
+
+            // Remover após a animação
+            setTimeout(() => {
+                effectElement.remove();
+            }, 8000);
+        }
+
+        // EFEITOS REVOLUCIONÁRIOS - FUNÇÕES ESPECÍFICAS
+        function createRealityShiftEffect(element, userName) {
+            // Criar múltiplos elementos para simular mudança de realidade
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            const symbols = ['🌌', '🌍', '🌌', '🌍', '🌌', '🌍'];
+
+            for (let i = 0; i < 6; i++) {
+                const realityElement = document.createElement('div');
+                realityElement.className = 'reality-shift-element';
+                realityElement.innerHTML = symbols[i];
+                realityElement.style.position = 'fixed';
+                realityElement.style.left = Math.random() * 90 + 5 + '%';
+                realityElement.style.top = Math.random() * 80 + 10 + '%';
+                realityElement.style.fontSize = '2em';
+                realityElement.style.color = colors[i];
+                realityElement.style.zIndex = '999';
+                realityElement.style.animation = 'realityShift 4s ease-in-out';
+                realityElement.style.textShadow = `0 0 20px ${colors[i]}`;
+
+                document.body.appendChild(realityElement);
+
+                setTimeout(() => realityElement.remove(), 4000);
+            }
+
+            // Efeito de distorção na tela
+            document.body.style.filter = 'hue-rotate(180deg) contrast(1.5)';
+            setTimeout(() => {
+                document.body.style.filter = 'none';
+            }, 2000);
+        }
+
+        function createMindControlEffect(element, userName) {
+            // Criar ondas cerebrais visuais
+            const brainWaves = document.createElement('div');
+            brainWaves.className = 'mind-control-waves';
+            brainWaves.innerHTML = '🧠';
+            brainWaves.style.position = 'fixed';
+            brainWaves.style.left = '50%';
+            brainWaves.style.top = '50%';
+            brainWaves.style.transform = 'translate(-50%, -50%)';
+            brainWaves.style.fontSize = '5em';
+            brainWaves.style.zIndex = '999';
+            brainWaves.style.animation = 'mindControl 6s ease-in-out';
+            brainWaves.style.textShadow = '0 0 30px #ff00ff';
+
+            document.body.appendChild(brainWaves);
+
+            // Criar ondas de controle mental
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const wave = document.createElement('div');
+                    wave.className = 'control-wave';
+                    wave.style.position = 'fixed';
+                    wave.style.left = '50%';
+                    wave.style.top = '50%';
+                    wave.style.width = '0px';
+                    wave.style.height = '0px';
+                    wave.style.border = '2px solid #ff00ff';
+                    wave.style.borderRadius = '50%';
+                    wave.style.transform = 'translate(-50%, -50%)';
+                    wave.style.zIndex = '998';
+                    wave.style.animation = 'controlWave 3s ease-out';
+
+                    document.body.appendChild(wave);
+                    setTimeout(() => wave.remove(), 3000);
+                }, i * 300);
+            }
+
+            setTimeout(() => brainWaves.remove(), 6000);
+        }
+
+        function createDimensionPortalEffect(element, userName) {
+            // Criar portal dimensional
+            const portal = document.createElement('div');
+            portal.className = 'dimension-portal';
+            portal.innerHTML = '🌀';
+            portal.style.position = 'fixed';
+            portal.style.left = '50%';
+            portal.style.top = '50%';
+            portal.style.transform = 'translate(-50%, -50%)';
+            portal.style.fontSize = '8em';
+            portal.style.zIndex = '999';
+            portal.style.animation = 'dimensionPortal 8s ease-in-out';
+            portal.style.textShadow = '0 0 50px #00ffff';
+
+            document.body.appendChild(portal);
+
+            // Criar partículas dimensionais
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.innerHTML = '✨';
+                    particle.style.position = 'fixed';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.fontSize = '1em';
+                    particle.style.color = '#00ffff';
+                    particle.style.zIndex = '997';
+                    particle.style.animation = 'dimensionalParticle 4s ease-out';
+
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 4000);
+                }, i * 200);
+            }
+
+            setTimeout(() => portal.remove(), 8000);
+        }
+
+        function createQuantumEntanglementEffect(element, userName) {
+            // Criar partículas quânticas entrelaçadas
+            const particles = [];
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff'];
+
+            for (let i = 0; i < 10; i++) {
+                const particle = document.createElement('div');
+                particle.innerHTML = '⚛️';
+                particle.style.position = 'fixed';
+                particle.style.left = Math.random() * 90 + 5 + '%';
+                particle.style.top = Math.random() * 80 + 10 + '%';
+                particle.style.fontSize = '2em';
+                particle.style.color = colors[i % colors.length];
+                particle.style.zIndex = '999';
+                particle.style.animation = 'quantumEntanglement 10s ease-in-out';
+                particle.style.textShadow = `0 0 20px ${colors[i % colors.length]}`;
+
+                document.body.appendChild(particle);
+                particles.push(particle);
+
+                // Criar linha de conexão entre partículas
+                if (i > 0) {
+                    const connection = document.createElement('div');
+                    connection.style.position = 'fixed';
+                    connection.style.left = particles[i - 1].style.left;
+                    connection.style.top = particles[i - 1].style.top;
+                    connection.style.width = '2px';
+                    connection.style.height = '100px';
+                    connection.style.background = 'linear-gradient(45deg, ' + colors[i - 1] + ', ' + colors[i] + ')';
+                    connection.style.zIndex = '998';
+                    connection.style.animation = 'quantumConnection 10s ease-in-out';
+
+                    document.body.appendChild(connection);
+                    setTimeout(() => connection.remove(), 10000);
+                }
+            }
+
+            setTimeout(() => {
+                particles.forEach(p => p.remove());
+            }, 10000);
+        }
+
+        function createNeuralLinkEffect(element, userName) {
+            // Criar rede neural visual
+            const neuralNetwork = document.createElement('div');
+            neuralNetwork.className = 'neural-network';
+            neuralNetwork.innerHTML = '🔗';
+            neuralNetwork.style.position = 'fixed';
+            neuralNetwork.style.left = '50%';
+            neuralNetwork.style.top = '50%';
+            neuralNetwork.style.transform = 'translate(-50%, -50%)';
+            neuralNetwork.style.fontSize = '6em';
+            neuralNetwork.style.zIndex = '999';
+            neuralNetwork.style.animation = 'neuralLink 7s ease-in-out';
+            neuralNetwork.style.textShadow = '0 0 40px #00ff00';
+
+            document.body.appendChild(neuralNetwork);
+
+            // Criar nós da rede neural
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const node = document.createElement('div');
+                    node.innerHTML = '●';
+                    node.style.position = 'fixed';
+                    node.style.left = Math.random() * 90 + 5 + '%';
+                    node.style.top = Math.random() * 80 + 10 + '%';
+                    node.style.fontSize = '1.5em';
+                    node.style.color = '#00ff00';
+                    node.style.zIndex = '998';
+                    node.style.animation = 'neuralNode 5s ease-in-out';
+
+                    document.body.appendChild(node);
+                    setTimeout(() => node.remove(), 5000);
+                }, i * 200);
+            }
+
+            setTimeout(() => neuralNetwork.remove(), 7000);
+        }
+
+        function createHolographicTouchEffect(element, userName) {
+            // Criar efeito de toque holográfico
+            const touchPoint = document.createElement('div');
+            touchPoint.innerHTML = '👆';
+            touchPoint.style.position = 'fixed';
+            touchPoint.style.left = Math.random() * 80 + 10 + '%';
+            touchPoint.style.top = Math.random() * 60 + 20 + '%';
+            touchPoint.style.fontSize = '4em';
+            touchPoint.style.zIndex = '999';
+            touchPoint.style.animation = 'holographicTouch 5s ease-in-out';
+            touchPoint.style.textShadow = '0 0 30px #ff8800';
+
+            document.body.appendChild(touchPoint);
+
+            // Criar ondas de toque
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const wave = document.createElement('div');
+                    wave.style.position = 'fixed';
+                    wave.style.left = touchPoint.style.left;
+                    wave.style.top = touchPoint.style.top;
+                    wave.style.width = '0px';
+                    wave.style.height = '0px';
+                    wave.style.border = '3px solid #ff8800';
+                    wave.style.borderRadius = '50%';
+                    wave.style.transform = 'translate(-50%, -50%)';
+                    wave.style.zIndex = '998';
+                    wave.style.animation = 'touchWave 3s ease-out';
+
+                    document.body.appendChild(wave);
+                    setTimeout(() => wave.remove(), 3000);
+                }, i * 400);
+            }
+
+            setTimeout(() => touchPoint.remove(), 5000);
+        }
+
+        function createSoundVisualizationEffect(element, userName) {
+            // Criar visualização sonora
+            const soundViz = document.createElement('div');
+            soundViz.innerHTML = '🎼';
+            soundViz.style.position = 'fixed';
+            soundViz.style.left = '50%';
+            soundViz.style.top = '50%';
+            soundViz.style.transform = 'translate(-50%, -50%)';
+            soundViz.style.fontSize = '5em';
+            soundViz.style.zIndex = '999';
+            soundViz.style.animation = 'soundVisualization 6s ease-in-out';
+            soundViz.style.textShadow = '0 0 35px #ff0080';
+
+            document.body.appendChild(soundViz);
+
+            // Criar barras de som
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => {
+                    const bar = document.createElement('div');
+                    bar.style.position = 'fixed';
+                    bar.style.left = (40 + i * 2) + '%';
+                    bar.style.bottom = '20%';
+                    bar.style.width = '1%';
+                    bar.style.height = Math.random() * 30 + 10 + '%';
+                    bar.style.background = 'linear-gradient(to top, #ff0080, #ff80ff)';
+                    bar.style.zIndex = '998';
+                    bar.style.animation = 'soundBar 4s ease-in-out';
+
+                    document.body.appendChild(bar);
+                    setTimeout(() => bar.remove(), 4000);
+                }, i * 100);
+            }
+
+            setTimeout(() => soundViz.remove(), 6000);
+        }
+
+        function createEmotionWaveEffect(element, userName) {
+            // Criar onda emocional
+            const emotionWave = document.createElement('div');
+            emotionWave.innerHTML = '💫';
+            emotionWave.style.position = 'fixed';
+            emotionWave.style.left = '50%';
+            emotionWave.style.top = '50%';
+            emotionWave.style.transform = 'translate(-50%, -50%)';
+            emotionWave.style.fontSize = '6em';
+            emotionWave.style.zIndex = '999';
+            emotionWave.style.animation = 'emotionWave 8s ease-in-out';
+            emotionWave.style.textShadow = '0 0 45px #ffaa00';
+
+            document.body.appendChild(emotionWave);
+
+            // Criar partículas emocionais
+            const emotions = ['😊', '😍', '🤩', '🥰', '😎', '🤗', '😌', '😇'];
+            for (let i = 0; i < 16; i++) {
+                setTimeout(() => {
+                    const emotion = document.createElement('div');
+                    emotion.innerHTML = emotions[i % emotions.length];
+                    emotion.style.position = 'fixed';
+                    emotion.style.left = Math.random() * 90 + 5 + '%';
+                    emotion.style.top = Math.random() * 80 + 10 + '%';
+                    emotion.style.fontSize = '2em';
+                    emotion.style.color = '#ffaa00';
+                    emotion.style.zIndex = '998';
+                    emotion.style.animation = 'emotionParticle 6s ease-in-out';
+
+                    document.body.appendChild(emotion);
+                    setTimeout(() => emotion.remove(), 6000);
+                }, i * 200);
+            }
+
+            setTimeout(() => emotionWave.remove(), 8000);
+        }
+
+        function createTimeReversalEffect(element, userName) {
+            // Criar efeito de reversão temporal
+            const timeReversal = document.createElement('div');
+            timeReversal.innerHTML = '⏪';
+            timeReversal.style.position = 'fixed';
+            timeReversal.style.left = '50%';
+            timeReversal.style.top = '50%';
+            timeReversal.style.transform = 'translate(-50%, -50%)';
+            timeReversal.style.fontSize = '7em';
+            timeReversal.style.zIndex = '999';
+            timeReversal.style.animation = 'timeReversal 10s ease-in-out';
+            timeReversal.style.textShadow = '0 0 60px #ff0000';
+
+            document.body.appendChild(timeReversal);
+
+            // Efeito de distorção temporal na tela
+            document.body.style.filter = 'invert(1) hue-rotate(180deg)';
+            setTimeout(() => {
+                document.body.style.filter = 'none';
+            }, 3000);
+
+            // Criar espirais temporais
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const spiral = document.createElement('div');
+                    spiral.innerHTML = '🌀';
+                    spiral.style.position = 'fixed';
+                    spiral.style.left = Math.random() * 90 + 5 + '%';
+                    spiral.style.top = Math.random() * 80 + 10 + '%';
+                    spiral.style.fontSize = '3em';
+                    spiral.style.color = '#ff0000';
+                    spiral.style.zIndex = '998';
+                    spiral.style.animation = 'timeSpiral 8s ease-in-out';
+
+                    document.body.appendChild(spiral);
+                    setTimeout(() => spiral.remove(), 8000);
+                }, i * 500);
+            }
+
+            setTimeout(() => timeReversal.remove(), 10000);
+        }
+
+        function createRealityMergeEffect(element, userName) {
+            // Criar efeito de fusão de realidades
+            const realityMerge = document.createElement('div');
+            realityMerge.innerHTML = '🔄';
+            realityMerge.style.position = 'fixed';
+            realityMerge.style.left = '50%';
+            realityMerge.style.top = '50%';
+            realityMerge.style.transform = 'translate(-50%, -50%)';
+            realityMerge.style.fontSize = '8em';
+            realityMerge.style.zIndex = '999';
+            realityMerge.style.animation = 'realityMerge 12s ease-in-out';
+            realityMerge.style.textShadow = '0 0 70px #ff00ff';
+
+            document.body.appendChild(realityMerge);
+
+            // Criar múltiplas camadas de realidade
+            const realities = ['🌍', '🌌', '🌍', '🌌', '🌍', '🌌'];
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    const reality = document.createElement('div');
+                    reality.innerHTML = realities[i];
+                    reality.style.position = 'fixed';
+                    reality.style.left = Math.random() * 90 + 5 + '%';
+                    reality.style.top = Math.random() * 80 + 10 + '%';
+                    reality.style.fontSize = '4em';
+                    reality.style.zIndex = '998';
+                    reality.style.animation = 'realityLayer 10s ease-in-out';
+
+                    document.body.appendChild(reality);
+                    setTimeout(() => reality.remove(), 10000);
+                }, i * 800);
+            }
+
+            setTimeout(() => realityMerge.remove(), 12000);
+        }
+
+        function createConsciousnessExpansionEffect(element, userName) {
+            // Criar efeito de expansão da consciência
+            const consciousness = document.createElement('div');
+            consciousness.innerHTML = '🧘';
+            consciousness.style.position = 'fixed';
+            consciousness.style.left = '50%';
+            consciousness.style.top = '50%';
+            consciousness.style.transform = 'translate(-50%, -50%)';
+            consciousness.style.fontSize = '6em';
+            consciousness.style.zIndex = '999';
+            consciousness.style.animation = 'consciousnessExpansion 9s ease-in-out';
+            consciousness.style.textShadow = '0 0 50px #00ffff';
+
+            document.body.appendChild(consciousness);
+
+            // Criar auras de consciência
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const aura = document.createElement('div');
+                    aura.style.position = 'fixed';
+                    aura.style.left = '50%';
+                    aura.style.top = '50%';
+                    aura.style.width = (i * 20) + 'px';
+                    aura.style.height = (i * 20) + 'px';
+                    aura.style.border = '2px solid #00ffff';
+                    aura.style.borderRadius = '50%';
+                    aura.style.transform = 'translate(-50%, -50%)';
+                    aura.style.zIndex = '998';
+                    aura.style.animation = 'consciousnessAura 7s ease-in-out';
+
+                    document.body.appendChild(aura);
+                    setTimeout(() => aura.remove(), 7000);
+                }, i * 300);
+            }
+
+            setTimeout(() => consciousness.remove(), 9000);
+        }
+
+        function createQuantumTeleportEffect(element, userName) {
+            // Criar efeito de teletransporte quântico
+            const teleport = document.createElement('div');
+            teleport.innerHTML = '🚀';
+            teleport.style.position = 'fixed';
+            teleport.style.left = '50%';
+            teleport.style.top = '50%';
+            teleport.style.transform = 'translate(-50%, -50%)';
+            teleport.style.fontSize = '7em';
+            teleport.style.zIndex = '999';
+            teleport.style.animation = 'quantumTeleport 15s ease-in-out';
+            teleport.style.textShadow = '0 0 80px #ff8800';
+
+            document.body.appendChild(teleport);
+
+            // Criar partículas de teletransporte
+            for (let i = 0; i < 25; i++) {
+                setTimeout(() => {
+                    const particle = document.createElement('div');
+                    particle.innerHTML = '✨';
+                    particle.style.position = 'fixed';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particle.style.fontSize = '1.5em';
+                    particle.style.color = '#ff8800';
+                    particle.style.zIndex = '998';
+                    particle.style.animation = 'teleportParticle 12s ease-in-out';
+
+                    document.body.appendChild(particle);
+                    setTimeout(() => particle.remove(), 12000);
+                }, i * 200);
+            }
+
+            setTimeout(() => teleport.remove(), 15000);
+        }
+
+        function createNeuralSyncEffect(element, userName) {
+            // Criar efeito de sincronização neural
+            const neuralSync = document.createElement('div');
+            neuralSync.innerHTML = '🧬';
+            neuralSync.style.position = 'fixed';
+            neuralSync.style.left = '50%';
+            neuralSync.style.top = '50%';
+            neuralSync.style.transform = 'translate(-50%, -50%)';
+            neuralSync.style.fontSize = '5em';
+            neuralSync.style.zIndex = '999';
+            neuralSync.style.animation = 'neuralSync 8s ease-in-out';
+            neuralSync.style.textShadow = '0 0 40px #00ff00';
+
+            document.body.appendChild(neuralSync);
+
+            // Criar DNA visual
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const dna = document.createElement('div');
+                    dna.innerHTML = '●';
+                    dna.style.position = 'fixed';
+                    dna.style.left = (45 + Math.sin(i * 0.5) * 10) + '%';
+                    dna.style.top = (20 + i * 3) + '%';
+                    dna.style.fontSize = '1.5em';
+                    dna.style.color = '#00ff00';
+                    dna.style.zIndex = '998';
+                    dna.style.animation = 'dnaStrand 6s ease-in-out';
+
+                    document.body.appendChild(dna);
+                    setTimeout(() => dna.remove(), 6000);
+                }, i * 150);
+            }
+
+            setTimeout(() => neuralSync.remove(), 8000);
+        }
+
+        function createDreamWalkerEffect(element, userName) {
+            // Criar efeito de caminhante dos sonhos
+            const dreamWalker = document.createElement('div');
+            dreamWalker.innerHTML = '💭';
+            dreamWalker.style.position = 'fixed';
+            dreamWalker.style.left = '50%';
+            dreamWalker.style.top = '50%';
+            dreamWalker.style.transform = 'translate(-50%, -50%)';
+            dreamWalker.style.fontSize = '6em';
+            dreamWalker.style.zIndex = '999';
+            dreamWalker.style.animation = 'dreamWalker 10s ease-in-out';
+            dreamWalker.style.textShadow = '0 0 55px #ff80ff';
+
+            document.body.appendChild(dreamWalker);
+
+            // Criar bolhas de sonho
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => {
+                    const bubble = document.createElement('div');
+                    bubble.innerHTML = '💭';
+                    bubble.style.position = 'fixed';
+                    bubble.style.left = Math.random() * 90 + 5 + '%';
+                    bubble.style.top = Math.random() * 80 + 10 + '%';
+                    bubble.style.fontSize = '2em';
+                    bubble.style.color = '#ff80ff';
+                    bubble.style.zIndex = '998';
+                    bubble.style.animation = 'dreamBubble 8s ease-in-out';
+
+                    document.body.appendChild(bubble);
+                    setTimeout(() => bubble.remove(), 8000);
+                }, i * 300);
+            }
+
+            setTimeout(() => dreamWalker.remove(), 10000);
+        }
+
+        function createRealityGlitchEffect(element, userName) {
+            // Criar efeito de glitch da realidade
+            const glitch = document.createElement('div');
+            glitch.innerHTML = '📱';
+            glitch.style.position = 'fixed';
+            glitch.style.left = '50%';
+            glitch.style.top = '50%';
+            glitch.style.transform = 'translate(-50%, -50%)';
+            glitch.style.fontSize = '5em';
+            glitch.style.zIndex = '999';
+            glitch.style.animation = 'realityGlitch 6s ease-in-out';
+            glitch.style.textShadow = '0 0 35px #ff0000';
+
+            document.body.appendChild(glitch);
+
+            // Efeito de glitch na tela
+            let glitchCount = 0;
+            const glitchInterval = setInterval(() => {
+                document.body.style.filter = glitchCount % 2 === 0 ?
+                    'hue-rotate(90deg) contrast(2)' :
+                    'invert(1) saturate(2)';
+                glitchCount++;
+                if (glitchCount > 10) {
+                    clearInterval(glitchInterval);
+                    document.body.style.filter = 'none';
+                }
+            }, 200);
+
+            setTimeout(() => glitch.remove(), 6000);
+        }
+
+        function createCosmicConsciousnessEffect(element, userName) {
+            // Criar efeito de consciência cósmica
+            const cosmic = document.createElement('div');
+            cosmic.innerHTML = '🌠';
+            cosmic.style.position = 'fixed';
+            cosmic.style.left = '50%';
+            cosmic.style.top = '50%';
+            cosmic.style.transform = 'translate(-50%, -50%)';
+            cosmic.style.fontSize = '8em';
+            cosmic.style.zIndex = '999';
+            cosmic.style.animation = 'cosmicConsciousness 20s ease-in-out';
+            cosmic.style.textShadow = '0 0 100px #ffffff';
+
+            document.body.appendChild(cosmic);
+
+            // Criar galáxias e estrelas
+            const cosmicElements = ['🌌', '⭐', '🌌', '⭐', '🌌', '⭐', '🌌', '⭐'];
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const element = document.createElement('div');
+                    element.innerHTML = cosmicElements[i % cosmicElements.length];
+                    element.style.position = 'fixed';
+                    element.style.left = Math.random() * 100 + '%';
+                    element.style.top = Math.random() * 100 + '%';
+                    element.style.fontSize = '3em';
+                    element.style.color = '#ffffff';
+                    element.style.zIndex = '998';
+                    element.style.animation = 'cosmicElement 15s ease-in-out';
+
+                    document.body.appendChild(element);
+                    setTimeout(() => element.remove(), 15000);
+                }, i * 400);
+            }
+
+            setTimeout(() => cosmic.remove(), 20000);
+        }
+
         // Adicionar mensagem à interface
         function addMessage(message) {
             const container = document.getElementById('messages-container');
@@ -1181,6 +2653,9 @@
 
         socket.on('effect_activated', function (data) {
             showNotification(`✨ ${data.userName} ativou: ${data.effect}`);
+
+            // Criar efeito visual baseado no tipo
+            createVisualEffect(data.effect, data.userName);
         });
 
         socket.on('holographic_effect', function (data) {
