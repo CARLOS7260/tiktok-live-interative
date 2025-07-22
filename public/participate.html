@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Participar da Live - TikTok Interactive</title>
+    <title>🌟 Experiência 4D - TikTok Live Interactive</title>
     <script src="/socket.io/socket.io.js"></script>
     <style>
         * {
@@ -15,211 +15,343 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            overflow-x: hidden;
             min-height: 100vh;
-            color: white;
+            position: relative;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+        /* Efeitos de fundo dinâmicos */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite;
         }
 
+        @keyframes backgroundShift {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.1) rotate(1deg);
+            }
+        }
+
+        /* Header futurístico */
         .header {
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 46, 0.9) 50%, rgba(0, 0, 0, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #00d4ff;
+            padding: 20px;
             text-align: center;
-            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            animation: scanLine 3s linear infinite;
+        }
+
+        @keyframes scanLine {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            position: relative;
+            z-index: 1;
         }
 
         .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+            font-size: 1.2em;
+            color: #ccc;
+            margin-top: 10px;
+            position: relative;
+            z-index: 1;
         }
 
-        .main-content {
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: 1fr 2fr 1fr;
             gap: 20px;
-            height: 70vh;
+            min-height: calc(100vh - 200px);
         }
 
-        .messages-section {
-            background: rgba(255, 255, 255, 0.1);
+        /* Painel de perfil */
+        .profile-panel {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid #00d4ff;
             border-radius: 15px;
             padding: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            overflow-y: auto;
+            position: relative;
+            overflow: hidden;
         }
 
-        .messages-section h2 {
+        .profile-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #ff6b6b, #4ecdc4);
+            animation: borderGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .profile-section {
             margin-bottom: 20px;
+        }
+
+        .profile-section h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
             text-align: center;
-            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
         }
 
-        .message {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 12px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            border-left: 3px solid #ffd93d;
-            animation: slideIn 0.3s ease-out;
+        .profile-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #00d4ff;
+            margin-bottom: 15px;
         }
 
-        .message-header {
+        .profile-info label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ccc;
+            font-size: 0.9em;
+        }
+
+        .profile-info input {
+            width: 100%;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #00d4ff;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1em;
+        }
+
+        .profile-info input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .stats-display {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 0.8rem;
-            opacity: 0.8;
+            margin-bottom: 10px;
         }
 
-        .username {
-            font-weight: bold;
-            color: #ffd93d;
-        }
-
-        .timestamp {
-            font-size: 0.7rem;
-        }
-
-        .message-text {
-            font-size: 1rem;
-            line-height: 1.3;
-        }
-
-        .input-section {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .input-section h3 {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
+        .stat-item {
             text-align: center;
-        }
-
-        .username-input {
-            margin-bottom: 15px;
-        }
-
-        .username-input label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        .username-input input {
-            width: 100%;
             padding: 10px;
-            border: none;
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 8px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
+            flex: 1;
+            margin: 0 5px;
         }
 
-        .message-input {
-            margin-bottom: 15px;
-        }
-
-        .message-input label {
-            display: block;
-            margin-bottom: 5px;
+        .stat-number {
+            font-size: 1.5em;
             font-weight: bold;
+            color: #4ecdc4;
+            text-shadow: 0 0 5px rgba(78, 205, 196, 0.5);
         }
 
-        .message-input textarea {
-            width: 100%;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: rgba(255, 255, 255, 0.9);
-            resize: vertical;
-            min-height: 80px;
-            font-family: inherit;
+        .stat-label {
+            font-size: 0.8em;
+            color: #ccc;
+            margin-top: 5px;
         }
 
-        .send-btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            background: #ffd93d;
-            color: #333;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .send-btn:hover {
-            background: #ffed4e;
-            transform: translateY(-2px);
-        }
-
-        .send-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .status {
-            text-align: center;
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 8px;
-            font-weight: bold;
-        }
-
-        .status.connected {
-            background: rgba(76, 175, 80, 0.3);
-            color: #4caf50;
-        }
-
-        .status.disconnected {
-            background: rgba(244, 67, 54, 0.3);
-            color: #f44336;
-        }
-
-        .quick-messages {
+        .achievements {
             margin-top: 20px;
         }
 
-        .quick-messages h4 {
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .quick-btn {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 5px;
-            border: none;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            cursor: pointer;
+        .achievement {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 3px solid #ff6b6b;
             transition: all 0.3s ease;
         }
 
-        .quick-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-1px);
+        .achievement:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
         }
 
-        @keyframes slideIn {
+        .achievement-icon {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .achievement-info {
+            flex: 1;
+        }
+
+        .achievement-name {
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .achievement-points {
+            font-size: 0.8em;
+            color: #ccc;
+        }
+
+        /* Painel central - Chat e Efeitos */
+        .main-panel {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b6b;
+        }
+
+        .chat-title {
+            font-size: 1.5em;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .online-indicator {
+            display: flex;
+            align-items: center;
+            color: #4ecdc4;
+            font-size: 0.9em;
+        }
+
+        .online-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ecdc4;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            max-height: 400px;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 4px solid #4ecdc4;
+            animation: messageSlide 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(78, 205, 196, 0.1), transparent);
+            transform: translateX(-100%);
+            animation: messageGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes messageSlide {
             from {
                 opacity: 0;
                 transform: translateX(-20px);
@@ -231,70 +363,533 @@
             }
         }
 
-        .typing-indicator {
-            font-style: italic;
-            opacity: 0.7;
+        @keyframes messageGlow {
+
+            0%,
+            100% {
+                transform: translateX(-100%);
+            }
+
+            50% {
+                transform: translateX(100%);
+            }
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .message-user {
+            font-weight: bold;
+            color: #4ecdc4;
+            text-shadow: 0 0 5px rgba(78, 205, 196, 0.5);
+        }
+
+        .message-time {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .message-text {
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .message-effects {
+            margin-top: 5px;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .effect-tag {
+            background: rgba(255, 107, 107, 0.3);
+            color: #ff6b6b;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 0.7em;
+            border: 1px solid #ff6b6b;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ff6b6b;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1em;
+            resize: none;
+            min-height: 50px;
+            max-height: 100px;
+        }
+
+        .message-input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .send-btn {
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .send-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .send-btn:hover::before {
+            left: 100%;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Efeitos especiais */
+        .effects-section {
+            margin-top: 20px;
+        }
+
+        .effects-title {
+            font-size: 1.3em;
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+
+        .effects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .effect-btn {
+            padding: 10px;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9em;
+        }
+
+        .effect-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .effect-btn:hover::before {
+            left: 100%;
+        }
+
+        .effect-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.3);
+        }
+
+        .effect-btn.disabled {
+            background: #666;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        .quick-messages {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
             margin-top: 10px;
+        }
+
+        .quick-msg {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #ff6b6b;
+            border-radius: 15px;
+            color: #ff6b6b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.8em;
+        }
+
+        .quick-msg:hover {
+            background: rgba(255, 107, 107, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* Painel lateral direito - Gamificação */
+        .gamification-panel {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid #4ecdc4;
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leaderboard {
+            margin-bottom: 20px;
+        }
+
+        .leaderboard h3 {
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin-bottom: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            border-left: 3px solid #4ecdc4;
+            transition: all 0.3s ease;
+        }
+
+        .leaderboard-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(3px);
+        }
+
+        .leaderboard-rank {
+            font-weight: bold;
+            color: #ff6b6b;
+            min-width: 25px;
+        }
+
+        .leaderboard-name {
+            flex: 1;
+            margin: 0 8px;
+            color: #fff;
+            font-size: 0.9em;
+        }
+
+        .leaderboard-points {
+            color: #4ecdc4;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .ai-section {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 10px;
+            border: 1px solid #00d4ff;
+        }
+
+        .ai-section h4 {
+            color: #00d4ff;
+            margin-bottom: 10px;
             text-align: center;
         }
 
-        @media (max-width: 768px) {
-            .main-content {
-                grid-template-columns: 1fr;
+        .ai-message {
+            background: rgba(0, 212, 255, 0.2);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 3px solid #00d4ff;
+            font-style: italic;
+        }
+
+        /* Animações de partículas */
+        .particle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: #00d4ff;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0;
             }
 
-            .header h1 {
-                font-size: 2rem;
+            50% {
+                opacity: 1;
             }
+        }
+
+        /* Efeitos holográficos */
+        .hologram {
+            position: absolute;
+            pointer-events: none;
+            animation: hologramFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes hologramFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateY(-10px) scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* Notificações */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: notificationSlide 0.5s ease-out;
+        }
+
+        @keyframes notificationSlide {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .container {
+                padding: 10px;
+            }
+
+            .input-section {
+                flex-direction: column;
+            }
+
+            .effects-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Loading screen */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(0, 212, 255, 0.3);
+            border-top: 3px solid #00d4ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            color: #00d4ff;
+            font-size: 1.2em;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎤 Participar da Live</h1>
-            <p>Envie suas mensagens e veja as dos outros participantes!</p>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">
+            <div>🌟 Conectando ao Sistema 4D...</div>
+            <div style="font-size: 0.8em; margin-top: 10px; color: #ccc;">Preparando experiência revolucionária</div>
         </div>
+    </div>
 
-        <div class="main-content">
-            <div class="messages-section">
-                <h2>💬 Mensagens em Tempo Real</h2>
-                <div id="messagesList"></div>
-                <div id="typingIndicator" class="typing-indicator" style="display: none;">
-                    Alguém está digitando...
+    <div class="header">
+        <h1>🌟 EXPERIÊNCIA 4D REVOLUCIONÁRIA</h1>
+        <p>Entre no futuro da interação digital!</p>
+    </div>
+
+    <div class="container">
+        <!-- Painel de Perfil -->
+        <div class="profile-panel">
+            <div class="profile-section">
+                <h3>👤 SEU PERFIL</h3>
+                <div class="profile-info">
+                    <label for="username">Seu Nome:</label>
+                    <input type="text" id="username" placeholder="Digite seu nome..." maxlength="20">
+                </div>
+                <button class="send-btn" onclick="setUsername()" style="width: 100%; margin-top: 10px;">
+                    ✅ Confirmar Nome
+                </button>
+            </div>
+
+            <div class="profile-section">
+                <h3>📊 SUAS ESTATÍSTICAS</h3>
+                <div class="stats-display">
+                    <div class="stat-item">
+                        <div class="stat-number" id="user-points">0</div>
+                        <div class="stat-label">Pontos</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="user-level">1</div>
+                        <div class="stat-label">Nível</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="input-section">
-                <h3>✍️ Enviar Mensagem</h3>
+            <div class="profile-section achievements">
+                <h3>🏆 SEUS ACHIEVEMENTS</h3>
+                <div id="achievements-list">
+                    <div style="text-align: center; color: #888; padding: 20px;">
+                        Complete ações para desbloquear achievements!
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                <div class="username-input">
-                    <label for="username">Seu Nome:</label>
-                    <input type="text" id="username" placeholder="Digite seu nome" maxlength="20">
+        <!-- Painel Principal -->
+        <div class="main-panel">
+            <div class="chat-section">
+                <div class="chat-header">
+                    <h2 class="chat-title">💬 CHAT 4D</h2>
+                    <div class="online-indicator">
+                        <div class="online-dot"></div>
+                        <span id="online-count">0</span> online
+                    </div>
                 </div>
 
-                <div class="message-input">
-                    <label for="messageText">Sua Mensagem:</label>
-                    <textarea id="messageText" placeholder="Digite sua mensagem aqui..." maxlength="200"></textarea>
+                <div class="messages-container" id="messages-container">
+                    <div style="text-align: center; color: #888; padding: 20px;">
+                        Bem-vindo à experiência 4D! Digite sua primeira mensagem...
+                    </div>
                 </div>
 
-                <button class="send-btn" onclick="sendMessage()" id="sendBtn">
-                    📤 Enviar Mensagem
-                </button>
-
-                <div id="status" class="status disconnected">
-                    🔴 Desconectado
+                <div class="input-section">
+                    <textarea class="message-input" id="message-input" placeholder="Digite sua mensagem 4D..."
+                        rows="2"></textarea>
+                    <button class="send-btn" onclick="sendMessage()">
+                        🚀 Enviar
+                    </button>
                 </div>
 
                 <div class="quick-messages">
-                    <h4>⚡ Mensagens Rápidas</h4>
-                    <button class="quick-btn" onclick="sendQuickMessage('Oi! 👋')">Oi! 👋</button>
-                    <button class="quick-btn" onclick="sendQuickMessage('Muito bom! 👍')">Muito bom! 👍</button>
-                    <button class="quick-btn" onclick="sendQuickMessage('Amei! ❤️')">Amei! ❤️</button>
-                    <button class="quick-btn" onclick="sendQuickMessage('Continue assim! 🔥')">Continue assim!
-                        🔥</button>
-                    <button class="quick-btn" onclick="sendQuickMessage('Parabéns! 🎉')">Parabéns! 🎉</button>
+                    <div class="quick-msg" onclick="sendQuickMessage('🚀 UAU! Que experiência incrível!')">🚀 UAU! Que
+                        experiência incrível!</div>
+                    <div class="quick-msg" onclick="sendQuickMessage('✨ Magia digital em ação!')">✨ Magia digital em
+                        ação!</div>
+                    <div class="quick-msg" onclick="sendQuickMessage('🌟 Vocês são demais!')">🌟 Vocês são demais!</div>
+                    <div class="quick-msg" onclick="sendQuickMessage('🔥 Fogo no parquinho digital!')">🔥 Fogo no
+                        parquinho digital!</div>
+                </div>
+            </div>
+
+            <div class="effects-section">
+                <h3 class="effects-title">🎭 EFEITOS ESPECIAIS 4D</h3>
+                <div class="effects-grid" id="effects-grid">
+                    <!-- Efeitos serão carregados dinamicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Painel de Gamificação -->
+        <div class="gamification-panel">
+            <div class="leaderboard">
+                <h3>🏆 RANKING DOS PARTICIPANTES</h3>
+                <div id="leaderboard-list">
+                    <div style="text-align: center; color: #888; padding: 20px;">
+                        Aguardando participantes...
+                    </div>
+                </div>
+            </div>
+
+            <div class="ai-section">
+                <h4>🤖 IA ASSISTENTE</h4>
+                <div id="ai-messages">
+                    <div class="ai-message">
+                        Olá! Sou sua IA assistente. Estou aqui para tornar sua experiência ainda mais incrível! 🌟
+                    </div>
                 </div>
             </div>
         </div>
@@ -303,165 +898,329 @@
     <script>
         const socket = io();
         let username = '';
-        let isConnected = false;
+        let userPoints = 0;
+        let userLevel = 1;
+        let userAchievements = [];
+        let availableEffects = {};
+        let participants = [];
+        let messages = [];
 
-        // Elementos DOM
-        const usernameInput = document.getElementById('username');
-        const messageText = document.getElementById('messageText');
-        const sendBtn = document.getElementById('sendBtn');
-        const statusDiv = document.getElementById('status');
-        const messagesList = document.getElementById('messagesList');
-        const typingIndicator = document.getElementById('typingIndicator');
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function () {
+            createParticles();
+            setupEventListeners();
 
-        // Conectar ao servidor
-        socket.on('connect', () => {
-            isConnected = true;
-            updateStatus('🟢 Conectado', 'connected');
-            console.log('Conectado ao servidor');
+            // Simular carregamento
+            setTimeout(() => {
+                document.getElementById('loading-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading-screen').style.display = 'none';
+                }, 500);
+            }, 2000);
         });
 
-        socket.on('disconnect', () => {
-            isConnected = false;
-            updateStatus('🔴 Desconectado', 'disconnected');
-            console.log('Desconectado do servidor');
-        });
-
-        // Receber nova mensagem
-        socket.on('new-message', (message) => {
-            addMessageToUI(message);
-        });
-
-        // Receber mensagens anteriores
-        socket.on('previous-messages', (messages) => {
-            messages.forEach(message => {
-                addMessageToUI(message);
-            });
-        });
-
-        // Usuário se identificou
-        socket.on('username-set', (name) => {
-            username = name;
-            console.log('Nome definido:', username);
-        });
-
-        // Adicionar mensagem à interface
-        function addMessageToUI(message) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message';
-
-            const timestamp = new Date(message.timestamp).toLocaleTimeString('pt-BR');
-
-            messageDiv.innerHTML = `
-                <div class="message-header">
-                    <span class="username">${message.username}</span>
-                    <span class="timestamp">${timestamp}</span>
-                </div>
-                <div class="message-text">${message.text}</div>
-            `;
-
-            messagesList.appendChild(messageDiv);
-            messagesList.scrollTop = messagesList.scrollHeight;
-
-            // Remover mensagens antigas se houver muitas
-            if (messagesList.children.length > 30) {
-                messagesList.removeChild(messagesList.firstChild);
+        // Criar partículas de fundo
+        function createParticles() {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                document.body.appendChild(particle);
             }
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            const messageInput = document.getElementById('message-input');
+            const usernameInput = document.getElementById('username');
+
+            messageInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                }
+            });
+
+            usernameInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    setUsername();
+                }
+            });
+        }
+
+        // Definir nome do usuário
+        function setUsername() {
+            const input = document.getElementById('username');
+            const name = input.value.trim();
+
+            if (name.length < 2) {
+                showNotification('❌ Nome deve ter pelo menos 2 caracteres!');
+                return;
+            }
+
+            username = name;
+            socket.emit('set_name', { name: username });
+
+            input.disabled = true;
+            input.style.background = 'rgba(78,205,196,0.2)';
+            input.style.borderColor = '#4ecdc4';
+
+            showNotification('✅ Nome definido com sucesso!');
         }
 
         // Enviar mensagem
         function sendMessage() {
-            const text = messageText.value.trim();
-            const name = usernameInput.value.trim();
+            const input = document.getElementById('message-input');
+            const text = input.value.trim();
 
-            if (!text) {
-                alert('Digite uma mensagem!');
+            if (!text) return;
+
+            if (!username) {
+                showNotification('❌ Defina seu nome primeiro!');
                 return;
             }
 
-            if (!name) {
-                alert('Digite seu nome!');
-                return;
-            }
-
-            if (!isConnected) {
-                alert('Você não está conectado!');
-                return;
-            }
-
-            // Definir nome se ainda não foi definido
-            if (name !== username) {
-                socket.emit('set-username', name);
-            }
-
-            // Enviar mensagem
-            socket.emit('send-message', {
+            socket.emit('send_message', {
                 text: text,
-                username: name
+                effects: [],
+                type: 'normal'
             });
 
-            // Limpar campo de mensagem
-            messageText.value = '';
-            messageText.focus();
+            input.value = '';
+            input.focus();
         }
 
         // Enviar mensagem rápida
         function sendQuickMessage(text) {
-            const name = usernameInput.value.trim();
-
-            if (!name) {
-                alert('Digite seu nome primeiro!');
-                usernameInput.focus();
+            if (!username) {
+                showNotification('❌ Defina seu nome primeiro!');
                 return;
             }
 
-            if (!isConnected) {
-                alert('Você não está conectado!');
-                return;
-            }
-
-            // Definir nome se ainda não foi definido
-            if (name !== username) {
-                socket.emit('set-username', name);
-            }
-
-            // Enviar mensagem
-            socket.emit('send-message', {
+            socket.emit('send_message', {
                 text: text,
-                username: name
+                effects: [],
+                type: 'quick'
             });
         }
 
-        // Atualizar status
-        function updateStatus(text, className) {
-            statusDiv.textContent = text;
-            statusDiv.className = `status ${className}`;
+        // Ativar efeito
+        function activateEffect(effectName) {
+            if (!username) {
+                showNotification('❌ Defina seu nome primeiro!');
+                return;
+            }
+
+            socket.emit('activate_effect', { effect: effectName });
         }
 
-        // Enviar mensagem com Enter
-        messageText.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
+        // Criar holograma
+        function createHologram() {
+            if (!username) return;
+
+            socket.emit('holographic_reaction', {
+                type: 'sparkle',
+                position: { x: Math.random() * 100, y: Math.random() * 100 }
+            });
+        }
+
+        // Adicionar mensagem à interface
+        function addMessage(message) {
+            const container = document.getElementById('messages-container');
+
+            // Remover mensagem de boas-vindas se existir
+            if (container.children.length === 1 && container.firstChild.style.textAlign === 'center') {
+                container.innerHTML = '';
+            }
+
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message';
+
+            const time = new Date(message.timestamp).toLocaleTimeString();
+
+            messageElement.innerHTML = `
+                <div class="message-header">
+                    <span class="message-user">${message.userName}</span>
+                    <span class="message-time">${time}</span>
+                </div>
+                <div class="message-text">${message.text}</div>
+                ${message.effects && message.effects.length > 0 ?
+                    `<div class="message-effects">
+                        ${message.effects.map(effect => `<span class="effect-tag">${effect}</span>`).join('')}
+                    </div>` : ''
+                }
+            `;
+
+            container.appendChild(messageElement);
+            container.scrollTop = container.scrollHeight;
+
+            // Efeito especial para mensagens com efeitos
+            if (message.effects && message.effects.length > 0) {
+                createHologramEffect(messageElement);
+            }
+
+            messages.push(message);
+        }
+
+        // Criar efeito holográfico
+        function createHologramEffect(element) {
+            const hologram = document.createElement('div');
+            hologram.className = 'hologram';
+            hologram.innerHTML = '✨';
+            hologram.style.fontSize = '1.5em';
+            hologram.style.color = '#00d4ff';
+
+            const rect = element.getBoundingClientRect();
+            hologram.style.left = (rect.left + rect.width / 2) + 'px';
+            hologram.style.top = (rect.top - 15) + 'px';
+
+            document.body.appendChild(hologram);
+
+            setTimeout(() => {
+                hologram.remove();
+            }, 3000);
+        }
+
+        // Atualizar leaderboard
+        function updateLeaderboard(leaderboardData) {
+            const container = document.getElementById('leaderboard-list');
+
+            if (leaderboardData.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #888; padding: 20px;">Aguardando participantes...</div>';
+                return;
+            }
+
+            container.innerHTML = leaderboardData.map((participant, index) => `
+                <div class="leaderboard-item">
+                    <span class="leaderboard-rank">#${index + 1}</span>
+                    <span class="leaderboard-name">${participant.name}</span>
+                    <span class="leaderboard-points">${participant.points} pts</span>
+                </div>
+            `).join('');
+        }
+
+        // Atualizar estatísticas do usuário
+        function updateUserStats(points, level, achievements) {
+            userPoints = points;
+            userLevel = level;
+            userAchievements = achievements;
+
+            document.getElementById('user-points').textContent = points;
+            document.getElementById('user-level').textContent = level;
+
+            // Atualizar achievements
+            const achievementsContainer = document.getElementById('achievements-list');
+            if (achievements.length === 0) {
+                achievementsContainer.innerHTML = '<div style="text-align: center; color: #888; padding: 20px;">Complete ações para desbloquear achievements!</div>';
+            } else {
+                achievementsContainer.innerHTML = achievements.map(achievement => `
+                    <div class="achievement">
+                        <div class="achievement-icon">${achievement.icon}</div>
+                        <div class="achievement-info">
+                            <div class="achievement-name">${achievement.name}</div>
+                            <div class="achievement-points">+${achievement.points} pontos</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // Carregar efeitos disponíveis
+        function loadEffects(effects) {
+            availableEffects = effects;
+            const grid = document.getElementById('effects-grid');
+
+            grid.innerHTML = Object.entries(effects).map(([key, effect]) => `
+                <button class="effect-btn" onclick="activateEffect('${key}')" data-cost="${effect.cost}">
+                    ${effect.name}<br>
+                    <small>${effect.cost} pts</small>
+                </button>
+            `).join('');
+        }
+
+        // Mostrar notificação
+        function showNotification(message, duration = 3000) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, duration);
+        }
+
+        // Adicionar mensagem da IA
+        function addAIMessage(text) {
+            const container = document.getElementById('ai-messages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'ai-message';
+            messageElement.textContent = text;
+            container.appendChild(messageElement);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Socket.IO Events
+        socket.on('welcome', function (data) {
+            loadEffects(data.availableEffects);
+            showNotification('🌟 Bem-vindo à experiência 4D!');
+        });
+
+        socket.on('new_message', function (message) {
+            addMessage(message);
+        });
+
+        socket.on('achievement_unlocked', function (achievement) {
+            showNotification(`🏆 Achievement desbloqueado: ${achievement.name}! +${achievement.points} pontos`);
+            userAchievements.push(achievement);
+            updateUserStats(userPoints, userLevel, userAchievements);
+        });
+
+        socket.on('effect_activated', function (data) {
+            showNotification(`✨ ${data.userName} ativou: ${data.effect}`);
+        });
+
+        socket.on('holographic_effect', function (data) {
+            showNotification(`🌟 ${data.userName} criou um holograma!`);
+        });
+
+        socket.on('ai_response', function (data) {
+            addAIMessage(data.text);
+        });
+
+        socket.on('participants_update', function (participantsData) {
+            participants = participantsData;
+            document.getElementById('online-count').textContent = participants.length;
+
+            // Encontrar dados do usuário atual
+            const currentUser = participants.find(p => p.name === username);
+            if (currentUser) {
+                updateUserStats(currentUser.points, currentUser.level, currentUser.achievements);
             }
         });
 
-        // Definir nome com Enter
-        usernameInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                messageText.focus();
+        socket.on('insufficient_points', function (data) {
+            showNotification(`❌ Pontos insuficientes! Você tem ${data.current} pontos, precisa de ${data.required}.`);
+        });
+
+        // Efeitos de entrada
+        setTimeout(() => {
+            showNotification('🚀 Sistema 4D Revolucionário Conectado!');
+        }, 2500);
+
+        setTimeout(() => {
+            showNotification('🌟 Defina seu nome para começar a experiência!');
+        }, 4000);
+
+        // Criar hologramas aleatórios
+        setInterval(() => {
+            if (Math.random() < 0.1) { // 10% de chance a cada 5 segundos
+                createHologram();
             }
-        });
-
-        // Indicador de digitação
-        let typingTimer;
-        messageText.addEventListener('input', () => {
-            clearTimeout(typingTimer);
-            typingIndicator.style.display = 'block';
-
-            typingTimer = setTimeout(() => {
-                typingIndicator.style.display = 'none';
-            }, 1000);
-        });
+        }, 5000);
     </script>
 </body>
 

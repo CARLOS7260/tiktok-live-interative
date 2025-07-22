@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - TikTok Live Interactive</title>
+    <title>🎮 Dashboard 4D - TikTok Live Interactive</title>
     <script src="/socket.io/socket.io.js"></script>
     <style>
         * {
@@ -15,187 +15,277 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            overflow-x: hidden;
             min-height: 100vh;
-            color: white;
+            position: relative;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        /* Efeitos de partículas de fundo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: backgroundShift 20s ease-in-out infinite;
         }
 
+        @keyframes backgroundShift {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.1) rotate(1deg);
+            }
+        }
+
+        /* Header futurístico */
         .header {
-            text-align: center;
-            margin-bottom: 30px;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 46, 0.9) 50%, rgba(0, 0, 0, 0.8) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #00d4ff;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 212, 255, 0.3), transparent);
+            animation: scanLine 3s linear infinite;
+        }
+
+        @keyframes scanLine {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 100%;
+            }
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #00d4ff, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            position: relative;
+            z-index: 1;
         }
 
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
+        .header h1::after {
+            content: '🌟 SISTEMA 4D REVOLUCIONÁRIO 🌟';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.3em;
+            color: #ff6b6b;
+            text-shadow: none;
+            -webkit-text-fill-color: #ff6b6b;
         }
 
-        .dashboard-grid {
+        /* Container principal */
+        .container {
             display: grid;
-            grid-template-columns: 1fr 300px;
+            grid-template-columns: 1fr 2fr 1fr;
             gap: 20px;
-            height: 70vh;
-        }
-
-        .messages-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
             padding: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            overflow-y: auto;
-        }
-
-        .messages-container h2 {
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 1.5rem;
-        }
-
-        .message {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            border-left: 4px solid #ff6b6b;
-            animation: slideIn 0.3s ease-out;
-        }
-
-        .message-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .username {
-            font-weight: bold;
-            color: #ffd93d;
-        }
-
-        .timestamp {
-            font-size: 0.8rem;
-        }
-
-        .message-text {
-            font-size: 1.1rem;
-            line-height: 1.4;
-        }
-
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .qr-section {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            text-align: center;
-        }
-
-        .qr-section h3 {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-
-        #qrCode {
-            max-width: 200px;
+            max-width: 1400px;
             margin: 0 auto;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            min-height: calc(100vh - 120px);
         }
 
-        .stats-section {
-            background: rgba(255, 255, 255, 0.1);
+        /* Painel lateral esquerdo - Estatísticas */
+        .stats-panel {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid #00d4ff;
             border-radius: 15px;
             padding: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
-        .stats-section h3 {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            text-align: center;
+        .stats-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #00d4ff, #ff6b6b, #4ecdc4);
+            animation: borderGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         .stat-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            padding: 8px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-value {
-            font-weight: bold;
-            color: #ffd93d;
-        }
-
-        .controls {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .controls h3 {
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-            text-align: center;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 10px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border-left: 4px solid #00d4ff;
             transition: all 0.3s ease;
         }
 
+        .stat-item:hover {
+            transform: translateX(5px);
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00d4ff;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 5px;
+        }
+
+        /* Painel central - Mensagens */
+        .messages-panel {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid #ff6b6b;
+            border-radius: 15px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .messages-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b6b;
+        }
+
+        .messages-title {
+            font-size: 1.5em;
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .control-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
         .btn-clear {
-            background: #ff6b6b;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
             color: white;
         }
 
-        .btn-clear:hover {
-            background: #ff5252;
-            transform: translateY(-2px);
-        }
-
-        .btn-toggle {
-            background: #4ecdc4;
+        .btn-pause {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
             color: white;
         }
 
-        .btn-toggle:hover {
-            background: #45b7aa;
+        .btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        @keyframes slideIn {
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            max-height: 500px;
+        }
+
+        .message {
+            background: rgba(255, 255, 255, 0.05);
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #4ecdc4;
+            animation: messageSlide 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(78, 205, 196, 0.1), transparent);
+            transform: translateX(-100%);
+            animation: messageGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes messageSlide {
             from {
                 opacity: 0;
                 transform: translateX(-20px);
@@ -207,184 +297,580 @@
             }
         }
 
-        .pulse {
-            animation: pulse 2s infinite;
-        }
+        @keyframes messageGlow {
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
+            0%,
+            100% {
+                transform: translateX(-100%);
             }
 
             50% {
-                transform: scale(1.05);
+                transform: translateX(100%);
+            }
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .message-user {
+            font-weight: bold;
+            color: #4ecdc4;
+            text-shadow: 0 0 5px rgba(78, 205, 196, 0.5);
+        }
+
+        .message-time {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        .message-text {
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .message-effects {
+            margin-top: 8px;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+
+        .effect-tag {
+            background: rgba(255, 107, 107, 0.3);
+            color: #ff6b6b;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            border: 1px solid #ff6b6b;
+        }
+
+        /* Painel lateral direito - Gamificação */
+        .gamification-panel {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid #4ecdc4;
+            border-radius: 15px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .leaderboard {
+            margin-bottom: 20px;
+        }
+
+        .leaderboard h3 {
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid #4ecdc4;
+            transition: all 0.3s ease;
+        }
+
+        .leaderboard-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .leaderboard-rank {
+            font-weight: bold;
+            color: #ff6b6b;
+            min-width: 30px;
+        }
+
+        .leaderboard-name {
+            flex: 1;
+            margin: 0 10px;
+            color: #fff;
+        }
+
+        .leaderboard-points {
+            color: #4ecdc4;
+            font-weight: bold;
+        }
+
+        /* Efeitos especiais */
+        .special-effects {
+            margin-top: 20px;
+        }
+
+        .special-effects h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .effect-button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a52);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .effect-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        /* QR Code */
+        .qr-section {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            border: 2px solid #00d4ff;
+        }
+
+        .qr-code {
+            max-width: 200px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        /* Animações de partículas */
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: #00d4ff;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0;
             }
 
-            100% {
-                transform: scale(1);
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 15px;
             }
         }
 
         @media (max-width: 768px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
+            .header h1 {
+                font-size: 1.8em;
             }
 
-            .header h1 {
-                font-size: 2rem;
+            .container {
+                padding: 10px;
             }
+
+            .control-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Efeitos holográficos */
+        .hologram {
+            position: absolute;
+            pointer-events: none;
+            animation: hologramFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes hologramFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateY(-10px) scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* Notificações */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: notificationSlide 0.5s ease-out;
+        }
+
+        @keyframes notificationSlide {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Status da IA */
+        .ai-status {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 1px solid #00d4ff;
+            font-size: 0.9em;
+            color: #00d4ff;
+            z-index: 1000;
+        }
+
+        .ai-status.active {
+            border-color: #4ecdc4;
+            color: #4ecdc4;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🎥 Dashboard do Streamer</h1>
-            <p>Mensagens em tempo real dos seus espectadores</p>
-        </div>
+    <div class="header">
+        <h1>🎮 DASHBOARD 4D REVOLUCIONÁRIO</h1>
+    </div>
 
-        <div class="dashboard-grid">
-            <div class="messages-container">
-                <h2>💬 Mensagens dos Espectadores</h2>
-                <div id="messagesList"></div>
+    <div class="container">
+        <!-- Painel de Estatísticas -->
+        <div class="stats-panel">
+            <h3>📊 ESTATÍSTICAS EM TEMPO REAL</h3>
+
+            <div class="stat-item">
+                <div class="stat-number" id="participants-count">0</div>
+                <div class="stat-label">👥 Participantes Ativos</div>
             </div>
 
-            <div class="sidebar">
-                <div class="qr-section">
-                    <h3>📱 QR Code para Participantes</h3>
-                    <img id="qrCode" src="" alt="QR Code">
-                    <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
-                        Escaneie para participar da live!
-                    </p>
-                </div>
+            <div class="stat-item">
+                <div class="stat-number" id="messages-count">0</div>
+                <div class="stat-label">💬 Mensagens Enviadas</div>
+            </div>
 
-                <div class="stats-section">
-                    <h3>📊 Estatísticas</h3>
-                    <div class="stat-item">
-                        <span>Mensagens Hoje:</span>
-                        <span class="stat-value" id="totalMessages">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Usuários Ativos:</span>
-                        <span class="stat-value" id="activeUsers">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <span>Status:</span>
-                        <span class="stat-value" id="status">Online</span>
-                    </div>
-                </div>
+            <div class="stat-item">
+                <div class="stat-number" id="effects-count">0</div>
+                <div class="stat-label">✨ Efeitos Ativos</div>
+            </div>
 
-                <div class="controls">
-                    <h3>⚙️ Controles</h3>
-                    <button class="btn btn-clear" onclick="clearMessages()">
-                        🗑️ Limpar Mensagens
-                    </button>
-                    <button class="btn btn-toggle" onclick="toggleMessages()" id="toggleBtn">
-                        ⏸️ Pausar Mensagens
-                    </button>
+            <div class="stat-item">
+                <div class="stat-number" id="total-points">0</div>
+                <div class="stat-label">🏆 Pontos Totais</div>
+            </div>
+
+            <div class="qr-section">
+                <h4>📱 QR CODE PARA PARTICIPANTES</h4>
+                <img id="qr-code" class="qr-code" src="" alt="QR Code">
+                <p style="margin-top: 10px; font-size: 0.9em; color: #ccc;">
+                    Escaneie para participar da experiência 4D!
+                </p>
+            </div>
+        </div>
+
+        <!-- Painel de Mensagens -->
+        <div class="messages-panel">
+            <div class="messages-header">
+                <h2 class="messages-title">💬 MENSAGENS 4D</h2>
+                <div class="control-buttons">
+                    <button class="btn btn-pause" id="pause-btn">⏸️ Pausar</button>
+                    <button class="btn btn-clear" id="clear-btn">🗑️ Limpar</button>
                 </div>
+            </div>
+
+            <div class="messages-container" id="messages-container">
+                <div style="text-align: center; color: #888; padding: 20px;">
+                    Aguardando mensagens dos participantes...
+                </div>
+            </div>
+        </div>
+
+        <!-- Painel de Gamificação -->
+        <div class="gamification-panel">
+            <div class="leaderboard">
+                <h3>🏆 RANKING DOS PARTICIPANTES</h3>
+                <div id="leaderboard-list">
+                    <div style="text-align: center; color: #888; padding: 20px;">
+                        Aguardando participantes...
+                    </div>
+                </div>
+            </div>
+
+            <div class="special-effects">
+                <h3>🎭 EFEITOS ESPECIAIS</h3>
+                <button class="effect-button" onclick="changeEnvironment('forest')">🌲 Floresta Mágica</button>
+                <button class="effect-button" onclick="changeEnvironment('ocean')">🌊 Oceano Profundo</button>
+                <button class="effect-button" onclick="changeEnvironment('space')">🚀 Espaço Sideral</button>
+                <button class="effect-button" onclick="changeEnvironment('city')">🏙️ Cidade Futurística</button>
+                <button class="effect-button" onclick="changeEnvironment('desert')">🏜️ Deserto Místico</button>
             </div>
         </div>
     </div>
 
+    <!-- Status da IA -->
+    <div class="ai-status" id="ai-status">
+        🤖 IA Assistente: Ativa
+    </div>
+
     <script>
         const socket = io();
-        let messagesEnabled = true;
-        let messageCount = 0;
+        let isPaused = false;
+        let messages = [];
+        let participants = new Map();
+        let effects = [];
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', function () {
+            loadQRCode();
+            createParticles();
+            updateStats();
+        });
 
         // Carregar QR Code
         async function loadQRCode() {
             try {
                 const response = await fetch('/qr-code');
                 const data = await response.json();
-                document.getElementById('qrCode').src = data.qrCode;
+                document.getElementById('qr-code').src = data.qrCode;
             } catch (error) {
                 console.error('Erro ao carregar QR Code:', error);
             }
         }
 
-        // Receber nova mensagem
-        socket.on('new-message', (message) => {
-            if (messagesEnabled) {
-                addMessageToUI(message);
-                messageCount++;
-                updateStats();
-            }
-        });
-
-        // Receber mensagens anteriores
-        socket.on('previous-messages', (messages) => {
-            messages.forEach(message => {
-                addMessageToUI(message);
-                messageCount++;
-            });
-            updateStats();
-        });
-
-        // Adicionar mensagem à interface
-        function addMessageToUI(message) {
-            const messagesList = document.getElementById('messagesList');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = 'message';
-
-            const timestamp = new Date(message.timestamp).toLocaleTimeString('pt-BR');
-
-            messageDiv.innerHTML = `
-                <div class="message-header">
-                    <span class="username">${message.username}</span>
-                    <span class="timestamp">${timestamp}</span>
-                </div>
-                <div class="message-text">${message.text}</div>
-            `;
-
-            messagesList.appendChild(messageDiv);
-            messagesList.scrollTop = messagesList.scrollHeight;
-
-            // Remover mensagens antigas se houver muitas
-            if (messagesList.children.length > 50) {
-                messagesList.removeChild(messagesList.firstChild);
+        // Criar partículas de fundo
+        function createParticles() {
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                document.body.appendChild(particle);
             }
         }
 
         // Atualizar estatísticas
         function updateStats() {
-            document.getElementById('totalMessages').textContent = messageCount;
+            document.getElementById('participants-count').textContent = participants.size;
+            document.getElementById('messages-count').textContent = messages.length;
+            document.getElementById('effects-count').textContent = effects.length;
+
+            const totalPoints = Array.from(participants.values()).reduce((sum, p) => sum + p.points, 0);
+            document.getElementById('total-points').textContent = totalPoints;
         }
 
-        // Limpar mensagens
-        function clearMessages() {
-            document.getElementById('messagesList').innerHTML = '';
-            messageCount = 0;
+        // Adicionar mensagem
+        function addMessage(message) {
+            if (isPaused) return;
+
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message';
+
+            const time = new Date(message.timestamp).toLocaleTimeString();
+
+            messageElement.innerHTML = `
+                <div class="message-header">
+                    <span class="message-user">${message.userName}</span>
+                    <span class="message-time">${time}</span>
+                </div>
+                <div class="message-text">${message.text}</div>
+                ${message.effects && message.effects.length > 0 ?
+                    `<div class="message-effects">
+                        ${message.effects.map(effect => `<span class="effect-tag">${effect}</span>`).join('')}
+                    </div>` : ''
+                }
+            `;
+
+            const container = document.getElementById('messages-container');
+            container.appendChild(messageElement);
+            container.scrollTop = container.scrollHeight;
+
+            // Efeito especial para mensagens com efeitos
+            if (message.effects && message.effects.length > 0) {
+                createHologram(messageElement);
+            }
+
+            messages.push(message);
             updateStats();
         }
 
-        // Pausar/Retomar mensagens
-        function toggleMessages() {
-            messagesEnabled = !messagesEnabled;
-            const btn = document.getElementById('toggleBtn');
+        // Criar holograma
+        function createHologram(element) {
+            const hologram = document.createElement('div');
+            hologram.className = 'hologram';
+            hologram.innerHTML = '✨';
+            hologram.style.fontSize = '2em';
+            hologram.style.color = '#00d4ff';
 
-            if (messagesEnabled) {
-                btn.innerHTML = '⏸️ Pausar Mensagens';
-                btn.classList.remove('pulse');
-            } else {
-                btn.innerHTML = '▶️ Retomar Mensagens';
-                btn.classList.add('pulse');
-            }
+            const rect = element.getBoundingClientRect();
+            hologram.style.left = (rect.left + rect.width / 2) + 'px';
+            hologram.style.top = (rect.top - 20) + 'px';
+
+            document.body.appendChild(hologram);
+
+            setTimeout(() => {
+                hologram.remove();
+            }, 3000);
         }
 
-        // Carregar QR Code ao iniciar
-        loadQRCode();
+        // Atualizar leaderboard
+        function updateLeaderboard(leaderboardData) {
+            const container = document.getElementById('leaderboard-list');
 
-        // Atualizar usuários ativos periodicamente
-        setInterval(() => {
-            socket.emit('get-active-users');
+            if (leaderboardData.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #888; padding: 20px;">Aguardando participantes...</div>';
+                return;
+            }
+
+            container.innerHTML = leaderboardData.map((participant, index) => `
+                <div class="leaderboard-item">
+                    <span class="leaderboard-rank">#${index + 1}</span>
+                    <span class="leaderboard-name">${participant.name}</span>
+                    <span class="leaderboard-points">${participant.points} pts</span>
+                </div>
+            `).join('');
+        }
+
+        // Mostrar notificação
+        function showNotification(message, duration = 3000) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, duration);
+        }
+
+        // Mudar ambiente
+        function changeEnvironment(environment) {
+            socket.emit('change_environment', { environment });
+            showNotification(`🌍 Ambiente alterado para: ${environment}`);
+        }
+
+        // Event Listeners
+        document.getElementById('pause-btn').addEventListener('click', function () {
+            isPaused = !isPaused;
+            this.textContent = isPaused ? '▶️ Retomar' : '⏸️ Pausar';
+            this.style.background = isPaused ?
+                'linear-gradient(45deg, #ff6b6b, #ee5a52)' :
+                'linear-gradient(45deg, #4ecdc4, #44a08d)';
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', function () {
+            if (confirm('Tem certeza que deseja limpar todas as mensagens?')) {
+                document.getElementById('messages-container').innerHTML =
+                    '<div style="text-align: center; color: #888; padding: 20px;">Mensagens limpas...</div>';
+                messages = [];
+                updateStats();
+            }
+        });
+
+        // Socket.IO Events
+        socket.on('new_message', function (message) {
+            addMessage(message);
+        });
+
+        socket.on('effect_activated', function (data) {
+            showNotification(`✨ ${data.userName} ativou: ${data.effect}`);
+            effects.push(data);
+            updateStats();
+        });
+
+        socket.on('holographic_effect', function (data) {
+            showNotification(`🌟 ${data.userName} criou um holograma!`);
+        });
+
+        socket.on('ai_response', function (data) {
+            const aiMessage = {
+                id: 'ai-' + Date.now(),
+                userName: '🤖 IA Assistente',
+                text: data.text,
+                timestamp: data.timestamp,
+                type: 'ai'
+            };
+            addMessage(aiMessage);
+
+            // Efeito especial para IA
+            const aiStatus = document.getElementById('ai-status');
+            aiStatus.classList.add('active');
+            setTimeout(() => aiStatus.classList.remove('active'), 2000);
+        });
+
+        socket.on('participants_update', function (participantsData) {
+            participants = new Map(participantsData.map(p => [p.id, p]));
+            updateStats();
+        });
+
+        socket.on('environment_changed', function (data) {
+            showNotification(`🌍 Mundo virtual alterado para: ${data.environment}`);
+        });
+
+        // Atualizar dados periodicamente
+        setInterval(async () => {
+            try {
+                const response = await fetch('/api/live-data');
+                const data = await response.json();
+
+                document.getElementById('participants-count').textContent = data.participants;
+                document.getElementById('messages-count').textContent = data.messages;
+                document.getElementById('effects-count').textContent = data.effects;
+
+                updateLeaderboard(data.leaderboard);
+            } catch (error) {
+                console.error('Erro ao atualizar dados:', error);
+            }
         }, 5000);
 
-        socket.on('active-users-count', (count) => {
-            document.getElementById('activeUsers').textContent = count;
-        });
+        // Efeitos de entrada
+        setTimeout(() => {
+            showNotification('🚀 Sistema 4D Revolucionário Ativado!');
+        }, 1000);
+
+        setTimeout(() => {
+            showNotification('🌟 Prepare-se para uma experiência única!');
+        }, 3000);
     </script>
 </body>
+
+</html>
 
 </html>
