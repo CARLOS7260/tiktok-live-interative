@@ -55,16 +55,35 @@ const achievements = {
     'creative_genius': { name: 'Gênio Criativo', points: 500, icon: '🧠' }
 };
 
-// Efeitos 4D Disponíveis
+// Efeitos 4D Disponíveis - REVOLUCIONÁRIOS!
 const availableEffects = {
-    'rainbow_trail': { name: 'Trilha Arco-íris', cost: 50, duration: 10 },
-    'fire_aura': { name: 'Aura de Fogo', cost: 100, duration: 15 },
-    'ice_crystal': { name: 'Cristal de Gelo', cost: 75, duration: 12 },
-    'electric_spark': { name: 'Faísca Elétrica', cost: 80, duration: 8 },
-    'cosmic_dust': { name: 'Pó Cósmico', cost: 120, duration: 20 },
-    'hologram_avatar': { name: 'Avatar Holográfico', cost: 200, duration: 30 },
-    'sound_wave': { name: 'Onda Sonora', cost: 60, duration: 10 },
-    'time_warp': { name: 'Dobra Temporal', cost: 300, duration: 25 }
+    // EFEITOS BÁSICOS
+    'rainbow_trail': { name: '🌈 Trilha Arco-íris', cost: 50, duration: 10 },
+    'fire_aura': { name: '🔥 Aura de Fogo', cost: 100, duration: 15 },
+    'ice_crystal': { name: '❄️ Cristal de Gelo', cost: 75, duration: 12 },
+    'electric_spark': { name: '⚡ Faísca Elétrica', cost: 80, duration: 8 },
+    'cosmic_dust': { name: '✨ Pó Cósmico', cost: 120, duration: 20 },
+    'hologram_avatar': { name: '👤 Avatar Holográfico', cost: 200, duration: 30 },
+    'sound_wave': { name: '🎵 Onda Sonora', cost: 60, duration: 10 },
+    'time_warp': { name: '⏰ Dobra Temporal', cost: 300, duration: 25 },
+
+    // EFEITOS REVOLUCIONÁRIOS - NUNCA VISTOS!
+    'reality_shift': { name: '🌌 Mudança de Realidade', cost: 200, duration: 20 },
+    'mind_control': { name: '🧠 Controle Mental', cost: 300, duration: 25 },
+    'dimension_portal': { name: '🌀 Portal Dimensional', cost: 250, duration: 30 },
+    'quantum_entanglement': { name: '⚛️ Emaranhamento Quântico', cost: 400, duration: 40 },
+    'neural_link': { name: '🔗 Conexão Neural', cost: 350, duration: 35 },
+    'holographic_touch': { name: '👆 Toque Holográfico', cost: 180, duration: 15 },
+    'sound_visualization': { name: '🎼 Visualização Sonora', cost: 120, duration: 18 },
+    'emotion_wave': { name: '💫 Onda Emocional', cost: 160, duration: 22 },
+    'time_reversal': { name: '⏪ Reversão Temporal', cost: 500, duration: 50 },
+    'reality_merge': { name: '🔄 Fusão de Realidades', cost: 600, duration: 60 },
+    'consciousness_expansion': { name: '🧘 Expansão da Consciência', cost: 450, duration: 45 },
+    'quantum_teleport': { name: '🚀 Teletransporte Quântico', cost: 700, duration: 70 },
+    'neural_sync': { name: '🧬 Sincronização Neural', cost: 550, duration: 55 },
+    'dream_walker': { name: '💭 Caminhante dos Sonhos', cost: 380, duration: 38 },
+    'reality_glitch': { name: '📱 Glitch da Realidade', cost: 220, duration: 28 },
+    'cosmic_consciousness': { name: '🌠 Consciência Cósmica', cost: 800, duration: 80 }
 };
 
 // Sistema de IA Assistente
